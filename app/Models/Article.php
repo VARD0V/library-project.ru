@@ -4,6 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
+    public $timestamps = false; // Отключаем временные метки
     protected $fillable = [
         'text', 'title', 'description', 'preview', 'article_category_id', 'author_id',
     ];
