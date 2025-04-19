@@ -6,12 +6,25 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DiscussionController;
 use Illuminate\Support\Facades\Route;
 
+// Главная страница
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
-Route::resource('articles', ArticleController::class);
-Route::resource('ai',       AIController::class);
-Route::resource('discussions',       DiscussionController::class);
 
-Route::get('/register', [AuthController::class, 'showRegistrationForm']);
+// Ресурсные маршруты
+Route::resource('articles', ArticleController::class);
+Route::resource('ai', AIController::class);
+Route::resource('discussions', DiscussionController::class);
+
+// Регистрация и авторизация
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register.form');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+// Защищенные маршруты (требуют аутентификации)
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [AuthController::class, 'show'])->name('profile');
+    Route::put('/profile', [AuthController::class, 'update'])->name('profile.update');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+});

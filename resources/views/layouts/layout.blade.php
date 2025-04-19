@@ -33,6 +33,16 @@
         <a href="{{ route('articles.index') }}">Статьи</a>
         <a href="{{ route('home') }}"><img src="{{asset('assets/images/logo.png')}}" alt="logo" width="60"></a>
         <a href="{{ route('ai.index') }}">ИИ</a>
+        @if(auth()->check())
+            <a href="{{ route('profile') }}">Профиль</a>
+            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                @csrf
+                <button type="submit" style="background: none; border: none; color: #007bff; cursor: pointer;">Выйти</button>
+            </form>
+        @else
+            <a href="{{ route('login') }}">Войти</a>
+            <a href="{{ route('register') }}">Регистрация</a>
+        @endif
     </nav>
 </header>
 
