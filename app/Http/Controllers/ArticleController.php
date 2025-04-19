@@ -46,7 +46,6 @@ class ArticleController extends Controller
         $article->save();
         return redirect()->route('articles.index')->with('success', 'Статья успешно создана!');
     }
-    //        $article->author_id = 1; // Фиксированный ID для тестирования
     //        $article = Article::create($request->validated());
     //        return redirect()->route(route: 'articles.index');
     //Показ формы для редактирования статьи

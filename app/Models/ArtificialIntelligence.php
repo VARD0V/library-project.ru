@@ -3,6 +3,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 class ArtificialIntelligence extends Model
 {
+    public $timestamps = false; // Отключаем временные метки
     protected $fillable = [
         'name', 'paid', 'trial', 'conversion_from', 'conversion_to',
     ];
