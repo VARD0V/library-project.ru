@@ -46,8 +46,8 @@
 
             <div>
                 <label for="profile-avatar">Новый аватар</label>
-                <input type="file" name="avatar" id="profile-avatar" accept="image/jpeg,image/png,image/svg+xml">
-                @error('avatar')
+                <input type="file" name="avatar_url" id="profile-avatar_url" accept="image/jpeg,image/png,image">
+                @error('avatar_url')
                 <p class="warning">{{ $message }}</p>
                 @enderror
             </div>

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UpdateProfileRequest;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -61,5 +63,24 @@ class AuthController extends Controller
     public function logout(Request $request) {
         Auth::logout();
         return redirect()->route('home');
+    }
+    public function update(UpdateProfileRequest $request)
+    {
+        $user = Auth::user();
+        $path = $user->avatar_url;
+// Если загружен новый аватар
+        if ($request->hasFile('avatar_url')) {
+            // Очищаем старый путь, но не удаляем файл
+            $user->avatar_url = null;
+            $user->save();
+            // Загружаем новый аватар
+            $path = $request->file('avatar_url')->store('avatars', 'public');
+
+            // Обновляем поле avatar_url с новым путём
+            $user->avatar_url = $path;
+        }
+        // Обновляем пользователя
+        $user->update($request->validated());
+        return redirect()->route('profile')->with('success', 'Профиль успешно обновлён.');
     }
 }
