@@ -27,7 +27,7 @@ class AuthController extends Controller
         // Создаем нового пользователя
         $user = User::create([
             ...$request->validated(),
-            'avatar' => $path, // Сохраняем путь к аватару
+            'avatar_url' => $path, // Сохраняем путь к аватару
             'role_id' => $role_user->id,
         ]);
         // Аутентификация

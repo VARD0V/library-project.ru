@@ -37,7 +37,7 @@
             </div>
             <div>
                 <label for="register-avatar">Аватар</label>
-                <input id="register-avatar" type="file" name="avatar" accept="image/jpeg,image/png,image/svg+xml" />
+                <input id="register-avatar" type="file" name="avatar_url" accept="image/jpeg,image/png,image/svg+xml" />
                 @error('avatar')
                 <p class="warning">{{ $message }}</p>
                 @enderror
