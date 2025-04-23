@@ -68,13 +68,13 @@ class AuthController extends Controller
     public function update(UpdateProfileRequest $request)
     {
         $user = Auth::user();
-        $path = $user->avatar_url;
 
         // Если загружен новый аватар
         if ($request->hasFile('avatar_url')) {
-            // Очищаем старый путь, но не удаляем файл
-            $user->avatar_url = null;
-            $user->save();
+            // Удаляем старый аватар, если он существует
+            if ($user->avatar_url) {
+                Storage::disk('public')->delete($user->avatar_url);
+            }
 
             // Загружаем новый аватар
             $path = $request->file('avatar_url')->store('avatars', 'public');
@@ -88,8 +88,8 @@ class AuthController extends Controller
             $user->password = Hash::make($request->password); // Хешируем новый пароль
         }
 
-        // Обновляем остальные поля пользователя, кроме пароля
-        $user->update($request->except('password')); // Исключаем поле пароля
+        // Обновляем остальные поля пользователя
+        $user->update($request->except(['password', 'avatar_url']));
 
         return redirect()->route('profile')->with('success', 'Профиль успешно обновлён.');
     }
