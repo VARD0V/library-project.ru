@@ -19,7 +19,8 @@ class UpdateProfileRequest extends FormRequest
             'login' => 'string|max:32|unique:users,login,' . $userId,
             'email' => 'email|max:255|unique:users,email,' . $userId,
             'birthday' => 'date',
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:4096',
+            'avatar_url' => 'nullable|image|mimes:jpeg,png,jpg|max:4096',
+            'password' => 'nullable|min:6|confirmed', // Пароль должен быть не менее 8 символов, если введён
         ];
     }
 }

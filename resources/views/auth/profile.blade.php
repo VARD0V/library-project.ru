@@ -52,6 +52,23 @@
                 @enderror
             </div>
 
+            <!-- Поля для изменения пароля -->
+            <div>
+                <label for="profile-password">Новый пароль</label>
+                <input type="password" name="password" id="profile-password" placeholder="Введите новый пароль">
+                @error('password')
+                <p class="warning">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label for="profile-password_confirmation">Подтвердите новый пароль</label>
+                <input type="password" name="password_confirmation" id="profile-password_confirmation" placeholder="Подтвердите новый пароль">
+                @error('password_confirmation')
+                <p class="warning">{{ $message }}</p>
+                @enderror
+            </div>
+
             <button type="submit">Сохранить изменения</button>
         </form>
     </section>
