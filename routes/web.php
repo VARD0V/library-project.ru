@@ -17,10 +17,11 @@ Route::resource('ai', AIController::class);
 Route::resource('discussions', DiscussionController::class);
 
 // Регистрация и авторизация
-Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register.form');
-Route::post('/register', [AuthController::class, 'register'])->name('register');
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
-Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register.form')->middleware('guest');
+Route::post('/register', [AuthController::class, 'register'])->name('register')->middleware('guest');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form')->middleware('guest');
+Route::post('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
+
 
 // Защищенные маршруты (требуют аутентификации)
 Route::middleware('auth')->group(function () {
