@@ -2,7 +2,10 @@
 
 @section('content')
     <h1>Список статей</h1>
-    <a href="{{ route('articles.create') }}">Создать новую статью</a>
+
+    @can('create', App\Models\Article::class)
+        <a href="{{ route('articles.create') }}">Создать новую статью</a>
+    @endcan
 
     <table class="table">
         <thead>
@@ -20,13 +23,19 @@
                 <td>{{ $article->title }}</td>
                 <td>{{ $article->articleCategory->name }}</td>
                 <td>
-                    <a href="{{ route('articles.show', $article) }}" >Просмотр</a>
-                    <a href="{{ route('articles.edit', $article) }}" >Редактировать</a>
-                    <form action="{{ route('articles.destroy', $article) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit">Удалить</button>
-                    </form>
+                    <a href="{{ route('articles.show', $article) }}">Просмотр</a>
+
+                    @can('update', $article)
+                        <a href="{{ route('articles.edit', $article) }}">Редактировать</a>
+                    @endcan
+
+                    @can('delete', $article)
+                        <form action="{{ route('articles.destroy', $article) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">Удалить</button>
+                        </form>
+                    @endcan
                 </td>
             </tr>
         @endforeach
