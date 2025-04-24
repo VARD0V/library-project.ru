@@ -1,0 +1,40 @@
+@font-face {
+font-family: "PixelifySansRegular";
+src: url("../fonts/PixelifySansRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+body{
+    margin: 0;
+}
+nav {
+    background-color: #3D9AD1;
+    height: 80px;
+    width: 98%;
+    border-radius: 0 0 20px 20px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center; /* горизонтальное выравнивание */
+    align-items: center;     /* вертикальное выравнивание */
+    gap: 40px;
+}
+nav a,
+nav img,
+nav button {
+    font-size: 32px;
+    color: white;
+    text-decoration: none;
+    font-family: 'PixelifySansRegular', sans-serif;
+}
+nav img {
+    filter: brightness(0) invert(1); /* делает логотип белым */
+    height: 60px; /* опционально: чтобы логотип был ровный */
+}
+nav form {
+    margin: 0;
+}
+nav button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
