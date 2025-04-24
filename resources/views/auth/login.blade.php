@@ -21,5 +21,6 @@
             </div>
         </form>
     </section>
+    <a href="{{ route('register') }}">Регистрация</a>
 @endsection
 

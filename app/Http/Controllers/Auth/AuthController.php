@@ -58,7 +58,11 @@ class AuthController extends Controller
     }
     public function show()
     {
-        return view('auth.profile');
+        if (Auth::check()) {
+            return view('auth.profile'); // Отображаем профиль, если авторизован
+        } else {
+            return redirect()->route('login'); // Перенаправляем на страницу входа, если не авторизован
+        }
     }
     // Выход
     public function logout(Request $request) {

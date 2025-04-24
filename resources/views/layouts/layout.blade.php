@@ -16,16 +16,10 @@
         <a href="{{ route('articles.index') }}">Статьи</a>
         <a href="{{ route('home') }}"><img src="{{ asset('assets/images/logo.png') }}" alt="logo"></a>
         <a href="{{ route('ai.index') }}">ИИ</a>
-        @if(auth()->check())
-            <a href="{{ route('profile') }}">Профиль</a>
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit">Выйти</button>
-            </form>
-        @else
-            <a href="{{ route('login') }}">Войти</a>
-        @endif
+
+        <a href="{{ route('profile') }}">Личный кабинет</a>  <!-- Только эта ссылка -->
     </nav>
+
 </header>
 
 <main>
