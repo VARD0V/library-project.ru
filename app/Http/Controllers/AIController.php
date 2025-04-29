@@ -1,12 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Requests\AIRequest;
 use App\Models\ArtificialIntelligence;
 use App\Models\Task;
-use Illuminate\Http\Request;
-
 class AIController extends Controller
 {
     public function __construct()
@@ -51,9 +47,7 @@ class AIController extends Controller
     }
     public function destroy(ArtificialIntelligence $ai)
     {
-        $ai->tasks()->detach();
         $ai->delete();
         return redirect()->route('ai.index')->with('success', 'ИИ удалён!');
     }
-
 }

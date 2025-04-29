@@ -2,7 +2,9 @@
 @section('title', 'LibraryAI')
 @section('content')
     <h1>Список искусственных интеллектов</h1>
-
+    @can('create', App\Models\ArtificialIntelligence::class)
+        <a href="{{ route('ai.create') }}">Создать новую AI</a>
+    @endcan
     <table>
         <thead>
         <tr>
@@ -26,6 +28,11 @@
                     @endif
                 </td>
                 <td><a href="{{ route('ai.show', $ai) }}">Просмотр</a></td>
+                <td>
+                    @can('update', $ai)
+                        <a href="{{ route('ai.edit', $ai) }}">Редактировать</a>
+                    @endcan
+                </td>
             </tr>
         @endforeach
         </tbody>

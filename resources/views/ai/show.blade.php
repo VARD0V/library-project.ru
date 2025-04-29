@@ -1,7 +1,5 @@
 @extends('layouts.layout')
-
-@section('title', $ai->name)
-
+@section('title', 'LibraryAI')
 @section('content')
     <h1>{{ $ai->name }}</h1>
 
