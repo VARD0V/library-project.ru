@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title', 'Вход')
+@section('title', 'LibraryAI')
 @section('content')
     <section class="log-in">
         <h2>Вход</h2>

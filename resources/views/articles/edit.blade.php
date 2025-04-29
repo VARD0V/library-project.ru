@@ -1,3 +1,4 @@
+@section('title', 'LibraryAI')
 <form action="{{ isset($article) ? route('articles.update', $article) : route('articles.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     @if(isset($article))

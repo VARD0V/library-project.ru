@@ -30,10 +30,6 @@ nav button {
 nav a:hover {
     text-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* Откидывает тень с 25% прозрачностью */
 }
-nav img {
-    filter: brightness(0) invert(1); /* делает логотип белым */
-    height: 60px; /* опционально: чтобы логотип был ровный */
-}
 nav form {
     margin: 0;
 }

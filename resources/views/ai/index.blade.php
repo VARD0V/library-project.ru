@@ -1,4 +1,5 @@
 @extends('layouts.layout')
+@section('title', 'LibraryAI')
 @section('content')
     <h1>Список искусственных интеллектов</h1>
 

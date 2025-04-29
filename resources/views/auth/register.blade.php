@@ -1,7 +1,5 @@
 @extends('layouts.layout')
-
-@section('title', 'Регистрация')
-
+@section('title', 'LibraryAI')
 @section('content')
     <section class="log-in" style="padding: 20px">
         <h2>Зарегаться</h2>

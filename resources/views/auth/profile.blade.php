@@ -1,7 +1,5 @@
 @extends('layouts.layout')
-
-@section('title', 'Личный кабинет')
-
+@section('title', 'LibraryAI')
 @section('content')
     <section class="profile" style="padding: 20px; max-width: 600px; margin: 0 auto;">
         <h2>Личный кабинет</h2>

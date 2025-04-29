@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-
+@section('title', 'LibraryAI')
 @section('content')
     <h1>{{ $article->title }}</h1>
     <p><strong>Категория:</strong> {{ $article->articleCategory->name }}</p>

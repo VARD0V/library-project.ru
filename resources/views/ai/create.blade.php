@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-
+@section('title', 'LibraryAI')
 @section('content')
     <h1>Создание нового ИИ</h1>
 
