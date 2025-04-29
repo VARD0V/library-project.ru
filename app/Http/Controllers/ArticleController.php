@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use App\Models\ArticleCategory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
@@ -36,23 +37,18 @@ class ArticleController extends Controller
     {
         // Валидация данных выполнена в ArticleRequest
         $validatedData = $request->validated();
-        // Создаем новую статью
-        $article = new Article();
-        $article->fill($validatedData); // Заполняем модель валидированными данными
-        // Добавляем заглушку для author_id (можно заменить на реального пользователя после реализации аутентификации)
-        $article->author_id = 1; // Фиксированный ID для тестирования
+        // Устанавливаем автора статьи — текущего пользователя
+        $validatedData['author_id'] = Auth::id();
         // Проверяем, загружено ли изображение
         if ($request->hasFile('preview')) {
             // Сохраняем файл в папку 'previews' внутри storage/app/public
             $path = $request->file('preview')->store('previews', 'public');
-            $article->preview = $path; // Сохраняем путь к файлу в базу данных
+            $validatedData['preview'] = $path; // Обновляем путь к изображению
         }
-        // Сохраняем статью в базу данных
-        $article->save();
+        // Создаем и сохраняем статью
+        Article::create($validatedData);
         return redirect()->route('articles.index')->with('success', 'Статья успешно создана!');
     }
-    //        $article = Article::create($request->validated());
-    //        return redirect()->route(route: 'articles.index');
     //Показ формы для редактирования статьи
     public function edit(Article $article)
     {
