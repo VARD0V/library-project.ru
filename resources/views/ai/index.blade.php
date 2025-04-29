@@ -25,6 +25,7 @@
                         </ul>
                     @endif
                 </td>
+                <td><a href="{{ route('ai.show', $ai) }}">Просмотр</a></td>
             </tr>
         @endforeach
         </tbody>

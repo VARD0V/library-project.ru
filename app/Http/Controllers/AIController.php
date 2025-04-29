@@ -9,15 +9,23 @@ use Illuminate\Http\Request;
 
 class AIController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(ArtificialIntelligence::class, 'ai');
+    }
     public function index()
     {
         // Получаем все AI с их задачами через связь tasks
         $ais = ArtificialIntelligence::with('tasks')->get();
         return view('ai.index', compact('ais'));
     }
+    public function show(ArtificialIntelligence $ai)
+    {
+        return view('ai.show', compact('ai'));
+    }
     public function create()
     {
-        $tasks = Task::all(); // Получаем все категории статей
+        $tasks = Task::all();
         return view('ai.create',compact( 'tasks'));
     }
     public function store(AIRequest $request)
@@ -30,32 +38,22 @@ class AIController extends Controller
 
         return redirect()->route('ai.index')->with('success', 'ИИ успешно создан!');
     }
-    public function show(string $id)
+    public function edit(ArtificialIntelligence $ai)
     {
-        //
+        $tasks = Task::all();
+        return view('ai.edit', compact('ai', 'tasks'));
+    }
+    public function update(AIRequest $request, ArtificialIntelligence $ai)
+    {
+        $ai->update($request->validated());
+        $ai->tasks()->sync($request->input('tasks', []));
+        return redirect()->route('ai.index')->with('success', 'ИИ обновлён!');
+    }
+    public function destroy(ArtificialIntelligence $ai)
+    {
+        $ai->tasks()->detach();
+        $ai->delete();
+        return redirect()->route('ai.index')->with('success', 'ИИ удалён!');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

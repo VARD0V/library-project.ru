@@ -8,5 +8,5 @@
     @if($article->preview)
         <img src="{{ asset('storage/' . $article->preview) }}" alt="Превью" style="max-width: 400px;">
     @endif
-    <a href="{{ route('articles.index') }}" class="btn btn-secondary mt-3">Назад к списку</a>
+    <a href="{{ route('articles.index') }}">Назад к списку</a>
 @endsection
