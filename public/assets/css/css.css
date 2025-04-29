@@ -5,7 +5,13 @@ src: url("../fonts/PixelifySansRegular.ttf") format("truetype");
     font-weight: normal;
 }
 body{
+    color: white;
     margin: 0;
+    background-image: url('../images/background.png'); /* путь относительно CSS-файла */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 nav {
     background-color: #3D9AD1;
@@ -37,4 +43,66 @@ nav button {
     background: none;
     border: none;
     cursor: pointer;
+}
+/*-------------------------------------------------------------------------------------------------*/
+
+#profile-section {
+    background-color: #212121;
+    width: 800px;
+    margin: 0 auto;
+    padding: 10px;
+    color: white;
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+
+#profile-title {
+    font-family: 'PixelifySansRegular', sans-serif;
+    font-size: 32px;
+    margin: 0;
+}
+
+#avatar-block {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#profile-avatar {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+#profile-form div,
+#logout-form {
+    margin-bottom: 15px;
+}
+
+input, label {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background: transparent;
+    border: 2px solid yellow;
+    color: yellow;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: yellow;
+    color: #212121;
+}
+
+#save-button {
+    margin-top: 20px;
+}
+
+#logout-button {
+    margin-top: 10px;
 }
