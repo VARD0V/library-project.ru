@@ -6,7 +6,7 @@
         @error('error')
         <p class="warning">{{ $message }}</p>
         @enderror
-        <form action="{{route('login')}}" method="post" enctype="application/x-www-form-urlencoded">
+        <form action="{{route('login')}}" method="post" enctype="application/x-www-form-urlencoded" autocomplete="off">
             @csrf
             <div>
                 <label for="log-in-email">Электронная почта</label>

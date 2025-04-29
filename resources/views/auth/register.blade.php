@@ -3,7 +3,7 @@
 @section('content')
     <section class="log-in" style="padding: 20px">
         <h2>Зарегаться</h2>
-        <form action="{{ route('register') }}" method="post" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 10px">
+        <form action="{{ route('register') }}" method="post" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 10px" autocomplete="off">
             @csrf
             <div>
                 <label for="register-birthday">День рождения *</label>
