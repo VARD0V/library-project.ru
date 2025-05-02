@@ -25,6 +25,12 @@
     @else
         <p>Комментариев пока нет.</p>
     @endif
+    <form action="{{ route('comments.store') }}" method="POST">
+        @csrf
+        <textarea name="text" rows="4" required placeholder="Комментарий..."></textarea>
+        <input type="hidden" name="article_id" value="{{ $article->id }}">
+        <button type="submit">Отправить</button>
+    </form>
 
     <a href="{{ route('articles.index') }}">Назад к списку</a>
 @endsection

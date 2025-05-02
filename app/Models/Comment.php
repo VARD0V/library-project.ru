@@ -1,9 +1,10 @@
 <?php
-// app/Models/Discussion.php
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
+    public $timestamps = false; // Отключаем временные метки
+
     protected $fillable = [
         'text', 'user_id', 'discussion_id', 'article_id',
     ];

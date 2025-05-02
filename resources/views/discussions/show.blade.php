@@ -19,8 +19,8 @@
     @if($discussion->comments->count())
         <ul>
             @foreach($discussion->comments as $comment)
-                <li style="margin-bottom: 15px;">
-                    <p><strong>{{ $comment->user->login ?? 'Аноним' }}:</strong></p>
+                <li>
+                    <p><strong>{{ $comment->user->login ?? 'Аноним' }}</strong></p>
                     <p>{{ $comment->text }}</p>
                 </li>
             @endforeach
@@ -28,6 +28,12 @@
     @else
         <p>Комментариев пока нет.</p>
     @endif
+    <form action="{{ route('comments.store') }}" method="POST">
+        @csrf
+        <textarea name="text" rows="4" required placeholder="Комментарий..."></textarea>
+        <input type="hidden" name="discussion_id" value="{{ $discussion->id }}">
+        <button type="submit">Отправить</button>
+    </form>
 
     <a href="{{ route('discussions.index') }}">← Назад к списку обсуждений</a>
 @endsection
