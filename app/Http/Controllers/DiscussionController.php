@@ -20,9 +20,9 @@ class DiscussionController extends Controller
     {
         //
     }
-    public function show(string $id)
+    public function show(Discussion $discussion)
     {
-        //
+        return view('discussions.show', compact('discussion'));
     }
     public function edit(string $id)
     {

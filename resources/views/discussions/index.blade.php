@@ -10,7 +10,7 @@
             <th>Заголовок</th>
             <th>Категория</th>
             <th>Автор</th>
-            <th>Дата создания</th>
+            <th>Посмотреть</th>
         </tr>
         </thead>
         <tbody>
@@ -20,6 +20,8 @@
                 <td>{{ $discussion->title }}</td>
                 <td>{{ $discussion->discussionCategory?->name ?? 'Без категории' }}</td>
                 <td>{{ $discussion->author?->login ?? 'Неизвестный автор' }}</td>
+                <td><a href="{{ route('discussions.show', $discussion) }}">Просмотр</a>
+                </td>
             </tr>
         @endforeach
         </tbody>
