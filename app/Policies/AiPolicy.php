@@ -19,7 +19,7 @@ class AiPolicy
 
     public function create(User $user): bool
     {
-        return $user->role->code === 'admin';
+        return $user !== null;
     }
 
     public function update(User $user, ArtificialIntelligence $ai): bool

@@ -25,7 +25,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login')->middlewa
 
 // Защищенные маршруты (требуют аутентификации)
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [AuthController::class, 'show'])->name('profile'); // Профиль доступен только авторизованным
+    Route::get('/profile', [AuthController::class, 'show'])->name('profile');
     Route::put('/profile', [AuthController::class, 'update'])->name('profile.update');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

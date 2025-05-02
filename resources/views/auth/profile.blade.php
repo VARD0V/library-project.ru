@@ -18,7 +18,7 @@
 
             <div>
                 <label for="profile-login">Логин</label>
-                <input type="text" id="profile-login" name="login" value="{{ old('login', auth()->user()->login) }}" required>
+                <input class="input-universal" type="text" id="profile-login" name="login" value="{{ old('login', auth()->user()->login) }}" required>
                 @error('login')
                 <p>{{ $message }}</p>
                 @enderror
@@ -64,12 +64,12 @@
                 @enderror
             </div>
 
-            <button type="submit" id="save-button">Сохранить изменения</button>
+            <button class="btn-universal" type="submit" id="save-button">Сохранить изменения</button>
         </form>
 
         <form action="{{ route('logout') }}" method="POST" id="logout-form">
             @csrf
-            <button type="submit" id="logout-button">Выйти</button>
+            <button class="btn-universal" type="submit" id="logout-button">Выйти</button>
         </form>
     </section>
 @endsection
