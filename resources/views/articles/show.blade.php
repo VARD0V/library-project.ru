@@ -1,5 +1,6 @@
 @extends('layouts.layout')
 @section('title', 'LibraryAI')
+
 @section('content')
     <h1>{{ $article->title }}</h1>
     <p><strong>Категория:</strong> {{ $article->articleCategory->name }}</p>
@@ -18,7 +19,26 @@
             @foreach($article->comments as $comment)
                 <li>
                     <p><strong>{{ $comment->user->login }}</strong></p>
-                    <p>{{ $comment->text }}</p>
+
+                    @if(session('edit_comment_id') == $comment->id)
+                        <!-- Форма редактирования -->
+                        <form action="{{ route('comments.update', $comment) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <textarea name="text" rows="3" required>{{ old('text', $comment->text) }}</textarea>
+                            <br>
+                            <button type="submit">Сохранить</button>
+                            <a href="{{ url()->current() }}">Отмена</a>
+                        </form>
+                    @else
+                        <p>{{ $comment->text }}</p>
+
+                        @can('update', $comment)
+                            <form action="{{ route('comments.edit', $comment) }}" method="GET" style="display:inline">
+                                <button type="submit">Редактировать</button>
+                            </form>
+                        @endcan
+                    @endif
 
                     @can('delete', $comment)
                         <form action="{{ route('comments.destroy', $comment) }}" method="POST" style="display:inline">
@@ -34,6 +54,7 @@
     @else
         <p>Комментариев пока нет.</p>
     @endif
+
     @auth
         <form action="{{ route('comments.store') }}" method="POST">
             @csrf
@@ -45,6 +66,5 @@
         <p>Только авторизованные пользователи могут оставлять комментарии.</p>
     @endauth
 
-
-    <a href="{{ route('articles.index') }}">Назад к списку</a>
+    <a href="{{ route('articles.index') }}">← Назад к списку</a>
 @endsection

@@ -21,7 +21,26 @@
             @foreach($discussion->comments as $comment)
                 <li>
                     <p><strong>{{ $comment->user->login}}</strong></p>
-                    <p>{{ $comment->text }}</p>
+
+                    @if(session('edit_comment_id') == $comment->id)
+                        <!-- Форма редактирования -->
+                        <form action="{{ route('comments.update', $comment) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <textarea name="text" rows="3" required>{{ old('text', $comment->text) }}</textarea>
+                            <br>
+                            <button type="submit">Сохранить</button>
+                            <a href="{{ url()->current() }}">Отмена</a>
+                        </form>
+                    @else
+                        <p>{{ $comment->text }}</p>
+
+                        @can('update', $comment)
+                            <form action="{{ route('comments.edit', $comment) }}" method="GET" style="display:inline">
+                                <button type="submit">Редактировать</button>
+                            </form>
+                        @endcan
+                    @endif
 
                     @can('delete', $comment)
                         <form action="{{ route('comments.destroy', $comment) }}" method="POST" style="display:inline">
@@ -31,6 +50,7 @@
                         </form>
                     @endcan
                 </li>
+
             @endforeach
         </ul>
     @else

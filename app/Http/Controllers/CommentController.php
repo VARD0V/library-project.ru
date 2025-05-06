@@ -29,13 +29,27 @@ class CommentController extends Controller
         }
         return back()->withErrors('Комментарий не привязан ни к статье, ни к обсуждению.');
     }
-    public function edit(string $id)
+    public function edit(Comment $comment)
     {
-        //
+        $this->authorize('update', $comment);
+        return back()->with('edit_comment_id', $comment->id);
     }
-    public function update(Request $request, string $id)
+    public function update(Request $request, Comment $comment)
     {
-        //
+        $this->authorize('update', $comment);
+
+        $validated = $request->validate([
+            'text' => 'required|string|min:1',
+        ]);
+        $comment->update(['text' => $validated['text']]);
+        // Перенаправим на обсуждение или статью
+        if ($comment->article_id) {
+            return redirect()->route('articles.show', $comment->article_id)->with('success', 'Комментарий обновлён!');
+        }
+        if ($comment->discussion_id) {
+            return redirect()->route('discussions.show', $comment->discussion_id)->with('success', 'Комментарий обновлён!');
+        }
+        return back()->with('success', 'Комментарий обновлён!');
     }
     public function destroy(Comment $comment)
     {
