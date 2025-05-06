@@ -5,16 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CommentController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-        //
-    }
-    public function create()
-    {
-        //
+        $this->authorizeResource(Comment::class, 'comment');
     }
     public function store(CommentRequest $request)
     {
@@ -32,10 +29,6 @@ class CommentController extends Controller
         }
         return back()->withErrors('Комментарий не привязан ни к статье, ни к обсуждению.');
     }
-    public function show(string $id)
-    {
-        //
-    }
     public function edit(string $id)
     {
         //
@@ -44,8 +37,19 @@ class CommentController extends Controller
     {
         //
     }
-    public function destroy(string $id)
+    public function destroy(Comment $comment)
     {
-        //
+        $this->authorize('delete', $comment);
+        $articleId = $comment->article_id;
+        $discussionId = $comment->discussion_id;
+        $comment->delete();
+        if ($articleId) {
+            return redirect()->route('articles.show', $articleId)->with('success', 'Комментарий удалён!');
+        }
+        if ($discussionId) {
+            return redirect()->route('discussions.show', $discussionId)->with('success', 'Комментарий удалён!');
+        }
+        return back()->with('success', 'Комментарий удалён!');
     }
+
 }
