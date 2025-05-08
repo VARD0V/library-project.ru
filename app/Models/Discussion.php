@@ -6,7 +6,7 @@ class Discussion extends Model
 {
     public $timestamps = false; // Отключаем временные метки
     protected $fillable = [
-        'text', 'title', 'description', 'preview', 'discussion_category_id', 'author_id',
+        'text', 'title', 'description', 'preview', 'status', 'discussion_category_id', 'author_id',
     ];
     // Связь с категорией обсуждения
     public function discussionCategory()

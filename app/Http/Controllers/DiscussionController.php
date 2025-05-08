@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class DiscussionController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Discussion::class, 'discussion');
+    }
     public function index()
     {
         $discussions = Discussion::all();
@@ -39,16 +43,26 @@ class DiscussionController extends Controller
     {
         return view('discussions.show', compact('discussion'));
     }
-    public function edit(string $id)
+    public function edit(Discussion $discussion)
     {
-        //
+        $this->authorize('update', $discussion);
+        return back()->with('edit_discussion_id', $discussion->id);
     }
-    public function update(Request $request, string $id)
+
+    public function update(Request $request, Discussion $discussion)
     {
-        //
+        $this->authorize('update', $discussion);
+        $request->validate([
+            'status' => 'required|string|max:255',
+        ]);
+        $discussion->status = $request->status;
+        $discussion->save();
+        return redirect()->back()->with('success', 'Статус обновлён!');
     }
-    public function destroy(string $id)
+    public function destroy(Discussion $discussion)
     {
-        //
+        $this->authorize('delete', $discussion);
+        $discussion->delete();
+        return redirect()->route('discussions.index')->with('success', 'Обсуждение удалено.');
     }
 }

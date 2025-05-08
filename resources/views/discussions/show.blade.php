@@ -6,12 +6,45 @@
 
     <p><strong>Категория:</strong> {{ $discussion->discussionCategory->name ?? 'Без категории' }}</p>
     <p><strong>Автор:</strong> {{ $discussion->author->login ?? 'Неизвестный автор' }}</p>
+
+    <!-- Статус + редактирование -->
+    @if(session('edit_discussion_id') == $discussion->id)
+        <form action="{{ route('discussions.update', $discussion) }}" method="POST" style="margin-bottom: 1rem;">
+            @csrf
+            @method('PUT')
+            <label for="status">Статус:</label>
+            <input type="text" name="status" id="status" value="{{ old('status', $discussion->status) }}" required>
+            <button type="submit">Сохранить</button>
+            <a href="{{ url()->current() }}">Отмена</a>
+        </form>
+    @else
+        <p><strong>Статус:</strong> {{ $discussion->status }}</p>
+
+        @can('update', $discussion)
+            <form action="{{ route('discussions.edit', $discussion) }}" method="GET" style="display:inline">
+                <button type="submit">Редактировать статус</button>
+            </form>
+        @endcan
+    @endif
+
+    <!-- Описание и текст -->
     <p><strong>Описание:</strong> {{ $discussion->description }}</p>
     <p><strong>Текст:</strong> {{ $discussion->text }}</p>
 
+    <!-- Превью -->
     @if($discussion->preview)
         <img src="{{ asset('storage/' . $discussion->preview) }}" alt="Превью" style="max-width: 400px;">
     @endif
+
+    <!-- Удаление -->
+    @can('delete', $discussion)
+        <form action="{{ route('discussions.destroy', $discussion) }}" method="POST" style="margin-top:10px;">
+            @csrf
+            @method('DELETE')
+            <button type="submit" onclick="return confirm('Вы уверены, что хотите удалить обсуждение?')">Удалить обсуждение</button>
+        </form>
+    @endcan
+
 
     <hr>
 
