@@ -12,7 +12,8 @@
 
         <label>Описание</label><br>
         <input type="text" name="description" value="{{ old('description') }}"><br>
-
+        <label>Статус</label><br>
+        <input type="text" name="status" value="{{ old('status') }}"><br>
         <label>Категория</label><br>
         <select name="discussion_category_id" required>
             @foreach($categories as $category)

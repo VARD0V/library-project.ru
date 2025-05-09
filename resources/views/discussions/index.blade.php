@@ -2,7 +2,7 @@
 @section('title', 'LibraryAI')
 @section('content')
     <h1>Список обсуждений</h1>
-
+    <a href="{{ route('discussions.create') }}">создать</a>
     <table class="table">
         <thead>
         <tr>

@@ -17,7 +17,7 @@ class DiscussionRequest extends FormRequest
             'description' => 'nullable|string|max:255',
             'text' => 'required|string',
             'preview' => 'nullable|image|max:2048',
-            'status' => 'image|max:2048',
+            'status' => 'string|max:2048',
             'discussion_category_id' => 'required|exists:discussion_categories,id',
         ];
     }
