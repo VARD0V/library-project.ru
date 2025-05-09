@@ -1,26 +1,26 @@
 @extends('layouts.layout')
 @section('title', 'LibraryAI')
 @section('content')
-    <section class="log-in">
-        <h2>Вход</h2>
+    <section class="auth-container">
+        <h2 class="auth-title">Вх0д</h2>
         @error('error')
-        <p class="warning">{{ $message }}</p>
+        <p class="auth-warning">{{ $message }}</p>
         @enderror
-        <form action="{{route('login')}}" method="post" enctype="application/x-www-form-urlencoded" autocomplete="off">
+
+        <form action="{{ route('login') }}" method="post" class="auth-form" autocomplete="off">
             @csrf
-            <div>
-                <label for="log-in-email">Электронная почта</label>
-                <input id="log-in-email" type="email" name="email" required placeholder="Введите почту"/>
+            <div class="auth-field">
+                <label for="auth-email">Электронная почта</label>
+                <input id="auth-email" type="email" name="email" required placeholder="Введите почту" class="auth-input" />
             </div>
-            <div>
-                <label for="log-in-password">Пароль</label>
-                <input id="log-in-password" type="password" name="password" required placeholder="Введите пароль"/>
+            <div class="auth-field">
+                <label for="auth-password">Пароль</label>
+                <input id="auth-password" type="password" name="password" required placeholder="Введите пароль" class="auth-input" />
             </div>
-            <div>
-                <button type="submit">Войти</button>
+            <div class="auth-button-wrapper">
+                <button type="submit" class="auth-button">В0йти</button>
             </div>
         </form>
+        <a href="{{ route('register') }}" class="auth-link">Нет аккаунта? Регистрация</a>
     </section>
-    <a href="{{ route('register') }}">Регистрация</a>
 @endsection
-

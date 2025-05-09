@@ -58,26 +58,22 @@ header nav svg:hover {
     border-radius: 20px;
     color: #fff;
 }
-
 .profile-page-title {
     text-transform: uppercase;
     font-size: 28px;
     margin: 0 0 10px 0;
 }
-
 .profile-page-main {
     display: flex;
     align-items: flex-start;
     gap: 7px;
 }
-
 .profile-page-avatar {
     width: 150px;
     height: 150px;
     border-radius: 20%;
     object-fit: cover;
 }
-
 .profile-page-info-block {
     display: flex;
     flex-direction: column;
@@ -93,7 +89,6 @@ header nav svg:hover {
     font-size: 24px;
     margin-bottom: 4px;
 }
-
 .profile-page-input {
     font-size: 20px;
     background: none;
@@ -103,11 +98,9 @@ header nav svg:hover {
     width: fit-content;
     height: auto;
 }
-
 .profile-page-input[readonly] {
     opacity: 0.6;
 }
-
 .profile-page-edit-btn {
     font-family: 'PixelifySansRegular', sans-serif;
     font-size: 20px;
@@ -121,14 +114,12 @@ header nav svg:hover {
     cursor: pointer;
     border-radius: 5px;
 }
-
 .profile-page-form {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-
 .profile-page-save-btn {
     font-family: 'PixelifySansRegular', sans-serif;
     font-size: 20px;
@@ -141,11 +132,9 @@ header nav svg:hover {
     cursor: pointer;
     width: fit-content;
 }
-
 .profile-page-logout-form {
     margin-top: 20px;
 }
-
 .profile-page-logout-btn {
     font-family: 'PixelifySansRegular', sans-serif;
     font-size: 20px;
@@ -155,6 +144,17 @@ header nav svg:hover {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: transform 0.3s;
+}
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-2px); }
+    100% { transform: translateX(0); }
+}
+.profile-page-logout-btn:hover {
+    animation: shake 0.4s;
 }
 .profile-page-logout-wrapper {
     display: flex;
@@ -163,3 +163,97 @@ header nav svg:hover {
 .hidden {
     display: none;
 }
+/*----------СТРАНИЦА ВХОДА и РЕГИСТРАЦИИ----------*/
+.auth-container {
+    width: 400px;
+    background-color: #212121;
+    border-radius: 20px;
+    margin: 30px auto;
+    padding: 20px;
+    color: white;
+    font-family: 'PixelifySansRegular', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.auth-title {
+    font-size: 28px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.auth-field {
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.auth-input {
+    background: none;
+    border: none;
+    border-bottom: 1px solid white;
+    color: white;
+    font-size: 18px;
+    padding: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.auth-input:invalid {
+    border-color: red;
+}
+
+.auth-input:valid {
+    border-color: #28a745;
+}
+
+.auth-button-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.auth-button {
+    font-family: 'PixelifySansRegular', sans-serif;
+    padding: 10px 20px;
+    border: none;
+    background-color: #444;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 18px;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.auth-button:hover {
+    box-shadow: 0 0 10px #999, 0 0 20px #999;
+}
+
+.auth-link {
+    color: #777;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.auth-link:hover {
+    text-shadow: 0 0 5px #999;
+}
+
+.auth-warning {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
