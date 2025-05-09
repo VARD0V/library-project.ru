@@ -9,12 +9,11 @@
     <title>@yield('title')</title>
 </head>
 <body>
-
 <header>
     <nav>
         <a href="{{ route('discussions.index') }}">0бсуждения</a>
         <a href="{{ route('articles.index') }}">Статьи</a>
-        <a href="{{ route('home') }}"><svg fill="#ffffff" height="60px" viewBox="0 0 512 512" xml:space="preserve">
+        <a href="{{ route('home') }}"><svg fill="#ffffff" height="70px" viewBox="0 0 512 512" xml:space="preserve">
 <g>
     <g>
         <path d="M301.253,463.578c-3.042-3.448-8.303-3.779-11.756-0.735c-23.75,20.958-54.296,32.501-86.008,32.501
@@ -76,15 +75,11 @@
         <a href="{{ route('ai.index') }}">ИИ</a>
         <a href="{{ route('profile') }}">Личный кабинет</a>  <!-- Только эта ссылка -->
     </nav>
-
 </header>
-
 <main>
     @yield('content')
 </main>
-
 <footer>
 </footer>
-
 </body>
 </html>
