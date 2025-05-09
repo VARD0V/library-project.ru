@@ -49,10 +49,14 @@ header nav svg:hover {
     filter: drop-shadow(0 0 10px white);
 }
 /*----------СТРАНИЦА ЛИЧНОГО КАБИНЕТА----------*/
+.profile-page-wrapper{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
 .profile-page-container {
     font-family: 'PixelifySansRegular', sans-serif;
-    max-width: 500px;
-    margin: 30px auto;
+    margin-top: 30px;
     padding: 20px;
     background-color: #212121;
     border-radius: 20px;
@@ -63,10 +67,28 @@ header nav svg:hover {
     font-size: 28px;
     margin: 0 0 10px 0;
 }
+.profile-page-discussion{
+    font-family: 'PixelifySansRegular', sans-serif;
+    max-width: 500px;
+    max-height: 400px;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #212121;
+    border-radius: 20px;
+    color: #fff;
+}
+.profile-page-discussion-a{
+    text-decoration: none;
+    color: white;
+    transition: text-shadow 0.4s ease; /* Плавная анимация */
+}
+.profile-page-discussion-a:hover{
+    text-shadow: 0 0 5px white, 0 0 10px white;
+}
 .profile-page-main {
     display: flex;
     align-items: flex-start;
-    gap: 7px;
+    gap: 30px;
 }
 .profile-page-avatar {
     width: 150px;

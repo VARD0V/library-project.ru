@@ -59,10 +59,11 @@ class AuthController extends Controller
     public function show()
     {
         if (Auth::check()) {
-            return view('auth.profile'); // Отображаем профиль, если авторизован
-        } else {
-            return redirect()->route('login'); // Перенаправляем на страницу входа, если не авторизован
+            $user = Auth::user();
+            $discussions = $user->discussions; // или Discussion::where('author_id', $user->id)->get();
+            return view('auth.profile', compact('discussions'));
         }
+        return redirect()->route('login');
     }
     // Выход
     public function logout(Request $request) {
