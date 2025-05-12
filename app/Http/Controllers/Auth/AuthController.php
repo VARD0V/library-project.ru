@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\Role;
@@ -27,16 +28,19 @@ class AuthController extends Controller
         if ($request->hasFile('avatar_url')) {
             $path = $request->file('avatar_url')->store('avatars', 'public');
         }
+
         // Создаем нового пользователя
         $user = User::create([
             ...$request->validated(),
-            'avatar_url' => $path, // Сохраняем путь к аватару
+            'avatar_url' => $path,
             'role_id' => $role_user->id,
         ]);
+
         // Аутентификация
         Auth::login($user);
         // Создание токена
         $user->createToken('default')->plainTextToken;
+
         return redirect()->route('home');
     }
     // Показать форму входа
@@ -45,16 +49,22 @@ class AuthController extends Controller
         return view('auth.login');
     }
     // Аутентификация
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        if (Auth::attempt($request->only('email', 'password'))) {
-            // Не нужно обновлять сессию
-            $user = Auth::user();
-            $token = $user->createToken('default')->plainTextToken;
-            return redirect()->route('home')->with('token', $token);
-        } else {
-            return response()->json(['error' => 'Неправильный логин или пароль'], 401);
+        $credentials = $request->only('email', 'password');
+
+        if (!Auth::attempt($credentials)) {
+            return back()
+                ->withErrors(['password' => 'Неверный пароль'])
+                ->withInput($request->only('email'));
         }
+
+        $user = Auth::user();
+        $token = $user->createToken('default')->plainTextToken;
+
+        return redirect()
+            ->route('home')
+            ->with('token', $token);
     }
     public function show()
     {
