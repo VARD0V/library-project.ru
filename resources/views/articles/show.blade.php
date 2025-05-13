@@ -1,70 +1,98 @@
 @extends('layouts.layout')
 @section('title', 'LibraryAI')
-
 @section('content')
-    <h1>{{ $article->title }}</h1>
-    <p><strong>Категория:</strong> {{ $article->articleCategory->name }}</p>
-    <p><strong>Описание:</strong> {{ $article->description }}</p>
-    <p><strong>Текст:</strong> {{ $article->text }}</p>
-
-    @if($article->preview)
-        <img src="{{ asset('storage/' . $article->preview) }}" alt="Превью" style="max-width: 400px;">
-    @endif
-
-    <hr>
-
-    <h2>Комментарии</h2>
-    @if($article->comments->count())
-        <ul>
-            @foreach($article->comments as $comment)
-                <li>
-                    <p><strong>{{ $comment->user->login }}</strong></p>
-
-                    @if(session('edit_comment_id') == $comment->id)
-                        <!-- Форма редактирования -->
-                        <form action="{{ route('comments.update', $comment) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <textarea name="text" rows="3" required>{{ old('text', $comment->text) }}</textarea>
-                            <br>
-                            <button type="submit">Сохранить</button>
-                            <a href="{{ url()->current() }}">Отмена</a>
-                        </form>
-                    @else
-                        <p>{{ $comment->text }}</p>
-
-                        @can('update', $comment)
-                            <form action="{{ route('comments.edit', $comment) }}" method="GET" style="display:inline">
-                                <button type="submit">Редактировать</button>
-                            </form>
-                        @endcan
+    <div class="article-container">
+        <div class="header-block">
+            <h1>{{ $article->title }}</h1>
+            @if($article->articleCategory || $article->description)
+                <div class="meta">
+                    @if($article->articleCategory)
+                        <span class="category">{{ $article->articleCategory->name }}</span>
                     @endif
+                    @if($article->description)
+                        <span class="description">{{ $article->description }}</span>
+                    @endif
+                </div>
+            @endif
+        </div>
 
-                    @can('delete', $comment)
-                        <form action="{{ route('comments.destroy', $comment) }}" method="POST" style="display:inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" onclick="return confirm('Удалить комментарий?')">Удалить</button>
-                        </form>
-                    @endcan
+        <div class="content-block">
+            <div class="image-wrapper">
+                @if($article->preview)
+                    <img src="{{ asset('storage/' . $article->preview) }}" alt="Превью">
+                @endif
+            </div>
+            <div class="text-wrapper">
+                <p>{{ $article->text }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="comments-container">
+        <h2>Комментарии</h2>
 
-                </li>
-            @endforeach
-        </ul>
-    @else
-        <p>Комментариев пока нет.</p>
-    @endif
+        @if($article->comments->count())
+            <ul class="comments-list">
+                @foreach($article->comments as $comment)
+                    <li class="comment-item">
+                        <div class="comment-header">
+                            @if($comment->user->avatar_url && file_exists(public_path('storage/' . $comment->user->avatar_url)))
+                                <img src="{{ asset('storage/' . $comment->user->avatar_url) }}" alt="Аватар" class="avatar">
+                            @else
+                                <img src="{{ asset('assets/images/anonim.jpg') }}" alt="Аватар" class="avatar">
+                            @endif
+                            <div class="user-info">
+                                <strong>{{ $comment->user->login}}:</strong>
+                            </div>
+                        </div>
+                        <div class="comment-body">
+                            @if(session('edit_comment_id') == $comment->id)
+                                <!-- Форма редактирования -->
+                                <form action="{{ route('comments.update', $comment) }}" method="POST" class="edit-form">
+                                    @csrf
+                                    @method('PUT')
+                                    <textarea name="text" rows="1" class="comment-input">{{ old('text', $comment->text) }}</textarea>
+                                    <div class="action-buttons">
+                                        <button class="articles-button-save" type="submit">Сохранить</button>
+                                        <a href="{{ url()->current() }}">Отмена</a>
+                                    </div>
+                                </form>
+                            @else
+                                <p>{{ $comment->text }}</p>
+                                <div class="comment-actions">
+                                    @can('update', $comment)
+                                        <form action="{{ route('comments.edit', $comment) }}" method="GET" style="display:inline">
+                                            <button type="submit" class="btn-edit">Редактировать</button>
+                                        </form>
+                                    @endcan
 
-    @auth
-        <form action="{{ route('comments.store') }}" method="POST">
-            @csrf
-            <textarea name="text" rows="4" required placeholder="Комментарий..."></textarea>
-            <input type="hidden" name="article_id" value="{{ $article->id }}">
-            <button type="submit">Отправить</button>
-        </form>
-    @else
-        <p>Только авторизованные пользователи могут оставлять комментарии.</p>
-    @endauth
+                                    @can('delete', $comment)
+                                        <form action="{{ route('comments.destroy', $comment) }}" method="POST" style="display:inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn-delete" onclick="return confirm('Удалить комментарий?')">Удалить</button>
+                                        </form>
+                                    @endcan
+                                </div>
+                            @endif
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
+        @else
+            <p class="no-comments">Комментариев пока нет.</p>
+        @endif
 
-    <a href="{{ route('articles.index') }}">← Назад к списку</a>
+        @auth
+            <div class="comment-form-container">
+                <form action="{{ route('comments.store') }}" method="POST">
+                    @csrf
+                    <textarea name="text" rows="1" class="comment-input" placeholder="Комментарий..."></textarea>
+                    <input type="hidden" name="article_id" value="{{ $article->id }}">
+                    <button type="submit" class="comments-button">Отправить</button>
+                </form>
+            </div>
+        @else
+            <p class="guest-message">Только авторизованные пользователи могут оставлять комментарии.</p>
+        @endauth
+    </div>
 @endsection

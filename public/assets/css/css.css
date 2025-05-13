@@ -8,14 +8,14 @@ src: url("../fonts/PixelifySansRegular.ttf") format("truetype");
 body{
     margin: 0;
     background-color: white;
-    /*background-image: url('../images/background.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;*/
 }
 body::-webkit-scrollbar {
     display: none;            /* Для Chrome, Safari и других WebKit-браузеров */
+}
+input:focus,
+textarea:focus,
+button:focus{
+    outline: none;
 }
 /*----------БЛОК НАВИГАЦИИ----------*/
 header {
@@ -403,4 +403,196 @@ header nav svg:hover {
 
 .articles-button:hover {
     box-shadow: 0 0 10px #999, 0 0 20px #999;
+}
+/*----СТРАНИЦА СТАТЬИ----*/
+.article-container {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    background-color: #212121;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 0 auto 20px;
+    width: 80%;
+    color: white;
+}
+
+.header-block h1 {
+    margin-top: 0;
+    color: white;
+    font-size: 2rem;
+}
+
+.meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.meta::before {
+    content: "|";
+    display: none;
+}
+
+.meta span::before {
+    content: "|";
+    display: inline-block;
+    margin-right: 6px;
+    color: #777;
+}
+
+.meta span:first-child::before {
+    display: none;
+}
+
+.content-block {
+    display: flex;
+    margin-top: 20px;
+    gap: 10px;
+    align-items: flex-start;
+}
+.image-wrapper img {
+    width: 500px;
+    height: auto;
+    border-radius: 5px;
+}
+.text-wrapper {
+    flex: 1;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    color: white;
+}
+/*----СТРАНИЦА СТАТЬИ----*/
+.comments-container {
+    background-color: #212121;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 30px auto;
+    width: 80%;
+}
+.comments-container h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: white;
+    text-align: left;
+}
+.comments-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.comment-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px 0;
+    border-bottom: 1px solid #444;
+}
+.comment-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: white;
+}
+.comment-body p {
+    margin: 0;
+    color: white;
+    word-wrap: break-word;
+}
+.comment-actions {
+    margin-top: 5px;
+}
+.comment-actions form,
+.comment-actions a {
+    margin-right: 10px;
+}
+.btn-delete {
+    background: none;
+    color: red;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+.btn-delete:hover {
+    color: white;
+}
+.btn-edit {
+    background: none;
+    color: #777;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+.btn-edit, .btn-delete{
+    padding: 0;
+}
+.btn-edit:hover {
+    color: white;
+}
+/* Блок формы написания комментария */
+.comment-form-container {
+    margin-top: 10px;
+}
+.comment-input {
+    width: 100%;
+    min-height: 30px;
+    max-height: 150px;
+    resize: none;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    background-color: #333;
+    color: white;
+    font-size: 14px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+.comments-button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #444;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.articles-button-save{
+    padding: 0;
+    margin-right: 10px;
+    background: none;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    cursor: pointer;
+    color: green;
+    border: none;
+}
+.action-buttons a{
+    text-decoration: none;
+    color: #444;
+    transition: all 0.3s ease;
+}
+.articles-button-save:hover{
+    color: white;
+}
+.action-buttons a:hover{
+    color: white;
+}
+.no-comments{
+    color: white;
 }
