@@ -283,3 +283,72 @@ header nav svg:hover {
     font-size: 14px;
     margin: 0 auto;
 }
+/* ----------СТАТЬИ---------- */
+.article-link {
+    text-decoration: none;
+    color: inherit;
+}
+.articles-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.article-card-horizontal {
+    display: flex;
+    width: 800px;
+    min-height: 250px;
+    background-color: #212121;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.article-image-horizontal {
+    width: 400px;
+    height: auto;
+    object-fit: cover;
+    flex-shrink: 0;
+    background-color: #ccc; /* Заглушка с серым фоном */
+    background-image: url('/public/assets/images/main-page2.png'); /* Заглушка, если фото не найдено */
+    background-size: cover;
+    background-position: center;
+}
+
+.article-details {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.article-title {
+    color: white;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.article-description {
+    color: #777;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.article-text {
+    color: #ccc;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.article-meta-horizontal {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+
