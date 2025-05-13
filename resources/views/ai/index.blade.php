@@ -1,8 +1,7 @@
 @extends('layouts.layout')
 @section('title', 'LibraryAI')
 @section('content')
-    <h1>Список искусственных интеллектов</h1>
-    @can('create', App\Models\ArtificialIntelligence::class)
+    @can('create', ArtificialIntelligence::class)
         <a href="{{ route('ai.create') }}">Создать новую AI</a>
     @endcan
     <table>

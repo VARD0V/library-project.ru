@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 // Главная страница
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('articles.index');
 })->name('home');
 
 // Ресурсные маршруты
