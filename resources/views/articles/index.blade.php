@@ -1,12 +1,23 @@
 @extends('layouts.layout')
 @section('title', 'LibraryAI')
-
 @section('content')
-    @can('create', App\Models\Article::class)
-        <div class="create-link">
-            <a href="{{ route('articles.create') }}">Создать новую статью</a>
-        </div>
-    @endcan
+    <div class="search-and-filter">
+        <form action="{{ route('articles.index') }}" method="GET" autocomplete="off">
+            <!-- Поле поиска -->
+            <input type="text" name="search" placeholder="Поиск по заголовкам и описанию..." value="{{ request('search') }}">
+            <!-- Выбор категории -->
+            <select name="category" id="category">
+                <option value="">Все категории</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
+            <!-- Кнопка отправки формы -->
+            <button class="articles-button" type="submit">Найти</button>
+        </form>
+    </div>
     <div class="articles-container">
         @foreach ($articles as $article)
             <a href="{{ route('articles.show', $article) }}" class="article-link">
@@ -18,7 +29,7 @@
                         <h2 class="article-title">{{ $article->title }}</h2>
                         <p class="article-description">{{ $article->description }}</p>
                         <p class="article-text">
-                            {{Str::words(strip_tags($article->text), 100, '...') }}
+                            {{Str::words(strip_tags($article->text), 30, '...') }}
                         </p>
                         <div class="article-meta-horizontal">
                             <span>{{ $article->articleCategory->name }}</span>

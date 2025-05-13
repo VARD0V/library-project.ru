@@ -18,8 +18,33 @@ class ArticleController extends Controller
     //Просмотр всех статей.
     public function index()
     {
-        $articles = Article::all();
-        return view('articles.index', compact('articles'));
+        // Получаем параметры из GET-запроса
+        $search = request('search');
+        $categoryId = request('category');
+
+        // Загружаем все категории для фильтрации
+        $categories = ArticleCategory::all();
+
+        // Базовый запрос
+        $query = Article::query();
+
+        // Фильтр по категории
+        if ($categoryId) {
+            $query->where('article_category_id', $categoryId);
+        }
+
+        // Поиск по заголовку или описанию
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        // Получаем результат
+        $articles = $query->get();
+
+        return view('articles.index', compact('articles', 'categories'));
     }
     //Просмотр конкретной статьи
     public function show(Article $article)
