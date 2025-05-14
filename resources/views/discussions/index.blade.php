@@ -1,31 +1,38 @@
 @extends('layouts.layout')
 @section('title', 'LibraryAI')
 @section('content')
-    <h1>Список обсуждений</h1>
-    <a href="{{ route('discussions.create') }}">создать</a>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Заголовок</th>
-            <th>Статус</th>
-            <th>Категория</th>
-            <th>Автор</th>
-            <th>Посмотреть</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach ($discussions as $discussion)
-            <tr>
-                <td>{{ $discussion->id }}</td>
-                <td>{{ $discussion->title }}</td>
-                <td>{{ $discussion->status }}</td>
-                <td>{{ $discussion->discussionCategory?->name ?? 'Без категории' }}</td>
-                <td>{{ $discussion->author?->login ?? 'Неизвестный автор' }}</td>
-                <td><a href="{{ route('discussions.show', $discussion) }}">Просмотр</a>
-                </td>
-            </tr>
+    <div class="search-and-filter">
+        <form action="{{ route('discussions.index') }}" method="GET" autocomplete="off">
+            <!-- Поле поиска -->
+            <input type="text" name="search" placeholder="Поиск по заголовкам и описанию..." value="{{ request('search') }}">
+            <!-- Выбор категории -->
+            <select name="category" id="category">
+                <option value="">Все категории</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
+            <!-- Кнопка отправки формы -->
+            <button class="articles-button" type="submit">Найти</button>
+        </form>
+    </div>
+    <div class="discussions-container">
+        @foreach($discussions as $discussion)
+            <a href="{{ route('discussions.show', $discussion) }}" class="discussion-card-link">
+                <div class="discussion-card">
+                    <h1>{{ $discussion->title }}</h1>
+                    <div class="meta">
+                        <span class="category">{{ $discussion->discussionCategory?->name }}</span>
+                        <span class="author">{{ $discussion->author?->login }}</span>
+                    </div>
+                    <p class="description">{{ $discussion->description }}</p>
+                    <div class="status">
+                        Статус: {{ $discussion->status }}
+                    </div>
+                </div>
+            </a>
         @endforeach
-        </tbody>
-    </table>
+    </div>
 @endsection

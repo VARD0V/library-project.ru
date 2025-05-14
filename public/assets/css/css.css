@@ -305,8 +305,11 @@ header nav svg:hover {
     border-radius: 20px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     overflow: hidden;
+    transition: transform 0.2s ease;
 }
-
+.article-card-horizontal:hover {
+    transform: scale(1.01);
+}
 .article-image-horizontal {
     width: 400px;
     height: auto;
@@ -362,6 +365,7 @@ header nav svg:hover {
     align-items: center;
     justify-content: center;
     gap: 20px; /* Расстояние между элементами формы */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
 .search-and-filter form {
@@ -458,12 +462,10 @@ header nav svg:hover {
     border-radius: 5px;
 }
 .text-wrapper {
-    flex: 1;
     word-wrap: break-word;
     overflow-wrap: break-word;
     color: white;
 }
-/*----СТРАНИЦА СТАТЬИ----*/
 .comments-container {
     background-color: #212121;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
@@ -499,6 +501,8 @@ header nav svg:hover {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    object-fit: cover;
+    object-position: bottom;
 }
 .user-info {
     display: flex;
@@ -595,4 +599,80 @@ header nav svg:hover {
 }
 .no-comments{
     color: white;
+}
+.guest-message{
+    color: white;
+}
+.back-btn{
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    width: 95%;
+}
+/*------СТРАНИЦА ОБСУЖДЕНИЙ------*/
+.discussions-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.discussion-card-link {
+    text-decoration: none;
+    color: inherit;
+    width: 400px;
+    max-width: 100%;
+}
+
+.discussion-card {
+    background-color: #212121;
+    border-radius: 10px;
+    padding: 15px;
+    height: 150px;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+}
+
+.discussion-card:hover {
+    transform: scale(1.01);
+}
+
+.discussion-card h1 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.meta {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+.meta .divider {
+    margin: 0 5px;
+}
+
+.description {
+    color: white;
+    margin-bottom: 10px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+
+.status {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    font-size: 0.85rem;
+    color: #ccc;
 }

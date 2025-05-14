@@ -16,8 +16,32 @@ class DiscussionController extends Controller
     }
     public function index()
     {
-        $discussions = Discussion::all();
-        return view('discussions.index', compact('discussions'));
+        // Получаем параметры из GET-запроса
+        $search = request('search');
+        $categoryId = request('category');
+
+        // Загружаем все категории для фильтрации
+        $categories = DiscussionCategory::all();
+
+        // Базовый запрос
+        $query = Discussion::query();
+
+        // Фильтр по категории
+        if ($categoryId) {
+            $query->where('article_category_id', $categoryId);
+        }
+
+        // Поиск по заголовку или описанию
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        // Получаем результат
+        $discussions = $query->get();
+        return view('discussions.index', compact('discussions', 'categories'));
     }
     public function create()
     {
