@@ -66,7 +66,7 @@ header nav svg:hover {
     gap: 30px;
 }
 .profile-page-container {
-    font-family: 'PixelifySansRegular', sans-serif;
+    font-family: 'RobotoCondensed', sans-serif;
     margin-top: 30px;
     padding: 20px;
     background-color: #212121;
@@ -81,7 +81,7 @@ header nav svg:hover {
 }
 .profile-page-discussion{
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-    font-family: 'PixelifySansRegular', sans-serif;
+    font-family: 'RobotoCondensed', sans-serif;
     max-width: 500px;
     max-height: 400px;
     margin-top: 30px;
@@ -137,7 +137,7 @@ header nav svg:hover {
     opacity: 0.6;
 }
 .profile-page-edit-btn {
-    font-family: 'PixelifySansRegular', sans-serif;
+    font-family: 'RobotoCondensed', sans-serif;
     font-size: 20px;
     text-transform: uppercase;
     width: fit-content;
@@ -156,7 +156,7 @@ header nav svg:hover {
     gap: 10px;
 }
 .profile-page-save-btn {
-    font-family: 'PixelifySansRegular', sans-serif;
+    font-family: 'RobotoCondensed', sans-serif;
     font-size: 20px;
     text-transform: uppercase;
     padding: 5px 10px;
@@ -171,7 +171,7 @@ header nav svg:hover {
     margin-top: 20px;
 }
 .profile-page-logout-btn {
-    font-family: 'PixelifySansRegular', sans-serif;
+    font-family: 'RobotoCondensed', sans-serif;
     font-size: 20px;
     background-color: #dc3545;
     color: white;
@@ -206,7 +206,7 @@ header nav svg:hover {
     margin: 30px auto;
     padding: 20px;
     color: white;
-    font-family: 'PixelifySansRegular', sans-serif;
+    font-family: 'RobotoCondensed', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -260,7 +260,7 @@ header nav svg:hover {
 }
 
 .auth-button {
-    font-family: 'PixelifySansRegular', sans-serif;
+    font-family: 'RobotoCondensed', sans-serif;
     padding: 10px 20px;
     border: none;
     background-color: #444;
@@ -799,4 +799,37 @@ header nav svg:hover {
 }
 .btn-cancel:hover{
     color: white;
+}
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: max-content;
+    min-width: 150px;
+    max-width: 300px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 12px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* над иконкой */
+    left: 50%;
+    margin-left: -280px; /* центрируем */
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(10px);
+    font-size: 14px;
+    white-space: normal;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
