@@ -5,9 +5,17 @@ src: url("../fonts/PixelifySansRegular.ttf") format("truetype");
     font-style: normal;
     font-weight: normal;
 }
+@font-face {
+    font-family: "RobotoCondensed";
+    src: url("../fonts/RobotoCondensed.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
 body{
     margin: 0;
     background-color: white;
+    font-family: 'RobotoCondensed', sans-serif;
+
 }
 body::-webkit-scrollbar {
     display: none;
@@ -356,30 +364,27 @@ header nav svg:hover {
 
 .search-and-filter {
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 900px;
     padding: 20px;
+    display: flex;
+    justify-content: center;
     background-color: #212121; /* Темный фон */
     border-radius: 10px; /* Закругленные края */
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
     gap: 20px; /* Расстояние между элементами формы */
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
-
 .search-and-filter form {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     gap: 20px;
-    width: 100%;
     margin: 0;
 }
 
 .search-and-filter input[type="text"],
 .search-and-filter select {
+    font-family: 'RobotoCondensed', sans-serif;
     padding-left: 5px;
     height: 40px; /* Уточнение высоты */
     width: 300px; /* Ширина поля поиска */
@@ -395,6 +400,7 @@ header nav svg:hover {
     width: 200px; /* Ширина выпадающего списка */
 }
 .articles-button{
+    font-family: 'RobotoCondensed', sans-serif;
     padding: 10px 20px;
     border: none;
     background-color: #333;
@@ -404,8 +410,25 @@ header nav svg:hover {
     font-size: 18px;
     transition: box-shadow 0.3s ease, transform 0.2s ease;
 }
-
 .articles-button:hover {
+    box-shadow: 0 0 10px #999, 0 0 20px #999;
+}
+.btn-create {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+    padding: 0 15px;
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    text-decoration: none;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.btn-create:hover {
     box-shadow: 0 0 10px #999, 0 0 20px #999;
 }
 /*----СТРАНИЦА СТАТЬИ----*/
@@ -566,8 +589,11 @@ header nav svg:hover {
     overflow-y: auto;
     box-sizing: border-box;
     margin-bottom: 10px;
+    font-family: 'RobotoCondensed', sans-serif;
+
 }
 .comments-button {
+    font-family: 'RobotoCondensed', sans-serif;
     padding: 10px 20px;
     border: none;
     background-color: #444;
@@ -635,7 +661,6 @@ header nav svg:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease;
 }
-.button
 .discussion-card:hover {
     transform: scale(1.01);
 }
@@ -662,7 +687,6 @@ header nav svg:hover {
 
 .description {
     color: white;
-    margin-bottom: 10px;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 4;

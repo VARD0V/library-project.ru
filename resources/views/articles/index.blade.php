@@ -17,6 +17,9 @@
             <!-- Кнопка отправки формы -->
             <button class="articles-button" type="submit">Найти</button>
         </form>
+        @auth
+            <a href="{{route('articles.create')}}" class="btn-create">Создать статью</a>
+        @endauth
     </div>
     <div class="articles-container">
         @foreach ($articles as $article)

@@ -35,7 +35,7 @@ php artisan storage:link
 ```
 php artisan storage:link
 ```
-Если возникли ошибки, выполните сброс и повторное заполнение:
+Если возникли ошибки при миграции, выполните сброс и повторное заполнение:
 ```
 php artisan migrate:fresh --seed
 ```
