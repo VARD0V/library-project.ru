@@ -882,7 +882,7 @@ header nav svg:hover {
 .select{
     font-family: 'RobotoCondensed', sans-serif;
     padding-left: 5px;
-    height: 40px; /* Уточнение высоты */
+    height: 40px;
     width: initial;
     border: none;
     border-radius: 5px;

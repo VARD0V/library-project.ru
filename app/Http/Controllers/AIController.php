@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AIRequest;
 use App\Models\ArtificialIntelligence;
 use App\Models\Task;
+use App\Models\Transformation;
+
 class AIController extends Controller
 {
     public function __construct()
@@ -11,9 +13,29 @@ class AIController extends Controller
     }
     public function index()
     {
-        // Получаем все AI с их задачами через связь tasks
-        $ais = ArtificialIntelligence::with('tasks')->get();
-        return view('ai.index', compact('ais'));
+        // Получаем параметры из GET-запроса
+        $search = request('search');
+        $transformationId = request('transformation');
+        // Загружаем все возможные трансформации для фильтрации
+        $transformations = Transformation::all();
+        // Базовый запрос с eager loading
+        $query = ArtificialIntelligence::with('transformations');
+        // Фильтр по трансформации
+        if ($transformationId) {
+            $query->whereHas('transformations', function ($q) use ($transformationId) {
+                $q->where('transformations.id', $transformationId);
+            });
+        }
+        // Поиск по имени или описанию
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+        // Получаем результат
+        $ais = $query->get();
+        return view('ai.index', compact('ais', 'transformations'));
     }
     public function show(ArtificialIntelligence $ai)
     {
