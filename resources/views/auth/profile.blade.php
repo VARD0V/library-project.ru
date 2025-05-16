@@ -29,28 +29,28 @@
                         <!-- Логин -->
                         <div class="profile-page-field">
                             <label for="profile-login">Логин</label>
-                            <input class="profile-page-input" type="text" id="profile-login" name="login"
+                            <input  class="profile-page-input" type="text" id="profile-login" name="login"
                                    value="{{ old('login', auth()->user()->login) }}" required>
                         </div>
 
                         <!-- Почта -->
                         <div class="profile-page-field">
                             <label for="profile-email">Email</label>
-                            <input class="profile-page-input" type="email" id="profile-email" name="email"
+                            <input  class="profile-page-input" type="email" id="profile-email" name="email"
                                    value="{{ old('email', auth()->user()->email) }}" required>
                         </div>
 
                         <!-- Дата рождения -->
                         <div class="profile-page-field">
                             <label for="profile-birthday">День рождения</label>
-                            <input class="profile-page-input" type="date" id="profile-birthday" name="birthday"
+                            <input style="border-bottom: none" class="profile-page-input" type="date" id="profile-birthday" name="birthday"
                                    value="{{ old('birthday', auth()->user()->birthday) }}" required>
                         </div>
 
                         <!-- Новый аватар -->
                         <div class="profile-page-field">
                             <label for="profile-avatar_url">Новый аватар</label>
-                            <input type="file" name="avatar_url" id="profile-avatar_url" accept="image/jpeg,image/png,image" class="profile-page-input">
+                            <input type="file" name="avatar_url" id="profile-avatar_url" accept="image/jpeg,image/png,image" class="file-input">
                         </div>
 
                         <!-- Новый пароль -->

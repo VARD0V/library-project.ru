@@ -31,7 +31,7 @@ button:focus{
 /*----------БЛОК НАВИГАЦИИ----------*/
 header {
     width: 95%;
-    height: 65px;
+    height: auto;
     background-color: #212121;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
@@ -41,9 +41,10 @@ header {
 }
 header nav {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 90px;
+    column-gap: 90px;
 }
 header nav a {
     font-family: 'PixelifySansRegular', sans-serif;
@@ -894,6 +895,38 @@ header nav svg:hover {
 }
 .create-div{
     display: flex;
-    justify-content: space-around;
     align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+.file-input{
+    font-family: 'RobotoCondensed', sans-serif;
+    background-color: #333;
+    color: white; /* Цвет текста в поле */
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none; /* Убираем рамку */
+    cursor: pointer;
+}
+.file-input::file-selector-button {
+    font-family: 'RobotoCondensed', sans-serif;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.15s;
+}
+.file-input:hover::file-selector-button {
+    background-color: #444;
+}
+.text-input{
+    font-family: 'RobotoCondensed', sans-serif;
+    background-color: #333;
+    color: white; /* Цвет текста в поле */
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 8px 12px;
 }
