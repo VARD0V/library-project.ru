@@ -15,12 +15,14 @@ class DatabaseSeeder extends Seeder
             UsersSeeder::class,
             ArticleCategoriesSeeder::class,
             DiscussionCategoriesSeeder::class,
-            TasksSeeder::class,
-            ArtificialIntelligencesSeeder::class,
-            AiTasksSeeder::class,
             ArticlesSeeder::class,
             DiscussionsSeeder::class,
             CommentsSeeder::class,
+            TasksSeeder::class,
+            TransformationsSeeder::class,
+            ArtificialIntelligencesSeeder::class,
+            AiTasksSeeder::class,
+            AiTransformationsSeeder::class,
         ]);
     }
 }

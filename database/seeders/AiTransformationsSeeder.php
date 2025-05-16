@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class AiTasksSeeder extends Seeder
+class AiTransformationsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,23 +16,16 @@ class AiTasksSeeder extends Seeder
         $data = [];
 
         // id искусственных интеллектов: от 1 до 20
-        $task_counter = 1;
-
         for ($ai_id = 1; $ai_id <= 20; $ai_id++) {
-            // На каждый ai_id приходится 2 task_id
-            $data[] = [
-                'ai_id' => $ai_id,
-                'task_id' => $task_counter++
-            ];
-            $data[] = [
-                'ai_id' => $ai_id,
-                'task_id' => $task_counter++
-            ];
+            // Для каждого ai_id задаём transformation_id = номеру ai
+            $transformation_id = $ai_id;
 
-            // Чтобы не выйти за пределы 146 задач
-            if ($task_counter > 146) break;
+            $data[] = [
+                'ai_id' => $ai_id,
+                'transformation_id' => $transformation_id
+            ];
         }
 
-        DB::table('ai_tasks')->insert($data);
+        DB::table('ai_transformations')->insert($data);
     }
 }

@@ -5,10 +5,14 @@ class ArtificialIntelligence extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-        'name', 'paid', 'trial', 'conversion_from', 'conversion_to',
+        'name', 'paid', 'trial', 'link', 'description'
     ];
     public function tasks()
     {
         return $this->belongsToMany(Task::class, 'ai_tasks', 'ai_id', 'task_id');
+    }
+    public function transformations()
+    {
+        return $this->belongsToMany(Transformation::class, 'ai_transformations', 'ai_id', 'transformation_id');
     }
 }
