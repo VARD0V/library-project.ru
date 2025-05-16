@@ -16,7 +16,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'login' => 'required|string|min:2|max:32|unique:users',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|min:10|max:255|unique:users',
             'password' => 'required|string|min:6|max:255',
             'birthday' => [
                 'required',
@@ -40,6 +40,7 @@ class RegisterRequest extends FormRequest
             'login.unique' => 'Этот логин уже занят.',
             'email.required' => 'Поле email обязательно для заполнения.',
             'email.unique' => 'Этот email уже занят.',
+            'email.min' => 'Поле email должно содержать минимум 10 символов.',
             'password.required' => 'Поле пароля обязательно для заполнения.',
             'password.min' => 'Пароль должен быть не менее 6 символов.',
             'avatar_url.mimes' => 'Аватар должен быть в формате jpeg, png или jpg.',

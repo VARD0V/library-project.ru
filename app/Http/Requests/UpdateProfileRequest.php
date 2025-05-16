@@ -2,6 +2,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class UpdateProfileRequest extends FormRequest
@@ -16,11 +17,31 @@ class UpdateProfileRequest extends FormRequest
         $userId = Auth::id();
 
         return [
-            'login' => 'string|max:32|unique:users,login,' . $userId,
-            'email' => 'email|max:255|unique:users,email,' . $userId,
-            'birthday' => 'date',
+            'login' => 'string|min:2|max:32|unique:users,login,' . $userId,
+            'email' => 'email|min:10|max:255|unique:users,email,' . $userId,
+            'birthday' => ['date',
+                function ($attribute, $value, $fail) {
+                    $minAge = Carbon::now()->subYears(5);
+                    if (Carbon::parse($value)->gt($minAge)) {
+                        $fail('Возраст должен быть не менее 5 лет.');
+                    }
+                },
+            ],
             'avatar_url' => 'nullable|image|mimes:jpeg,png,jpg|max:4096',
-            'password' => 'nullable|min:6|confirmed', // Пароль должен быть не менее 8 символов, если введён
+            'password' => 'nullable|min:6|confirmed',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'birthday.date' => 'Неверный формат даты.',
+            'login.unique' => 'Этот логин уже занят.',
+            'email.unique' => 'Этот email уже занят.',
+            'email.min' => 'Поле email должно содержать минимум 10 символов.',
+            'login.min' => 'Поле login должно содержать минимум 2 символа.',
+            'password.min' => 'Пароль должен быть не менее 6 символов.',
+            'avatar_url.mimes' => 'Аватар должен быть в формате jpeg, png или jpg.',
+            'avatar_url.max' => 'Размер аватара не должен превышать 4MB.',
         ];
     }
 }
