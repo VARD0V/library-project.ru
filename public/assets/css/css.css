@@ -939,6 +939,9 @@ header nav svg:hover {
     gap: 20px;
     margin-top: 20px;
 }
+.ai-container a{
+    text-decoration: none;
+}
 .ai-card{
     color: white;
     background-color: #212121;
@@ -948,6 +951,11 @@ header nav svg:hover {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    transition: transform 0.2s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.ai-card:hover {
+    transform: scale(1.01);
 }
 .ai-card-img{
     display: flex;
@@ -969,14 +977,11 @@ header nav svg:hover {
     color: #888;
     height: 50px;
 }
-.ai-card-description p{
-    margin: 0;
-}
 .ai-card-transformations-tasks{
     height: fit-content;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 3px;
     font-size: 14px;
 }
 .ai-card-transformations-tasks span{

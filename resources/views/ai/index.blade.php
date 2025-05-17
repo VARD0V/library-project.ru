@@ -38,29 +38,31 @@
             <h2>По вашему запросу ничего не найдено:(</h2>
         @else
             @foreach ($ais as $ai)
-                <div class="ai-card">
-                    <div class="ai-card-img">
-                        <img src="/public/assets/images/ai.png" alt="photo">
+                <a href="{{ route('ai.show', $ai) }}">
+                    <div class="ai-card">
+                        <div class="ai-card-img">
+                            <img src="/public/assets/images/ai.png" alt="photo">
+                        </div>
+                        <div class="ai-card-name">
+                            <span>{{ $ai->name }}</span>
+                        </div>
+                        <div class="ai-card-description">
+                            <span>
+                                {{ Str::limit(strip_tags($ai->description), 115, '...', true) }}
+                            </span>
+                        </div>
+                        <div class="ai-card-transformations-tasks">
+                            @foreach ($ai->transformations as $transformation)
+                                <span>{{ $transformation->name }}</span>
+                            @endforeach
+                        </div>
+                        <div class="ai-card-transformations-tasks">
+                            @foreach ($ai->tasks as $task)
+                                <span>{{ $task->name }}</span>
+                            @endforeach
+                        </div>
                     </div>
-                    <div class="ai-card-name">
-                        <span>{{ $ai->name }}</span>
-                    </div>
-                    <div class="ai-card-description">
-                        <p>
-                            {{Str::words(strip_tags($ai->description), 30, '...') }}
-                        </p>
-                    </div>
-                    <div class="ai-card-transformations-tasks">
-                        @foreach ($ai->transformations as $transformation)
-                            <span>{{ $transformation->name }}</span>
-                        @endforeach
-                    </div>
-                    <div class="ai-card-transformations-tasks">
-                        @foreach ($ai->tasks as $task)
-                            <span>{{ $task->name }}</span>
-                        @endforeach
-                    </div>
-                </div>
+                </a>
             @endforeach
         @endif
     </div>

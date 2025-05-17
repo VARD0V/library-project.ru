@@ -18,7 +18,7 @@
                     @enderror
                 </div>
                 <div>
-                    <label class="create-label" for="trial">Описание триала:</label><br>
+                    <label class="create-label" for="trial">Пробный период:</label><br>
                     <input class="text-input" type="text" name="trial" id="trial" value="{{ old('trial') }}">
                     @error('trial')
                     <div class="text-danger">{{ $message }}</div>
