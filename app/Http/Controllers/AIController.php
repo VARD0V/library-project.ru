@@ -13,29 +13,30 @@ class AIController extends Controller
     }
     public function index()
     {
-        // Получаем параметры из GET-запроса
         $search = request('search');
         $transformationId = request('transformation');
-        // Загружаем все возможные трансформации для фильтрации
+        $taskId = request('task');
         $transformations = Transformation::all();
-        // Базовый запрос с eager loading
-        $query = ArtificialIntelligence::with('transformations');
-        // Фильтр по трансформации
+        $tasks = Task::all();
+        $query = ArtificialIntelligence::with(['transformations', 'tasks']);
         if ($transformationId) {
             $query->whereHas('transformations', function ($q) use ($transformationId) {
                 $q->where('transformations.id', $transformationId);
             });
         }
-        // Поиск по имени или описанию
+        if ($taskId) {
+            $query->whereHas('tasks', function ($q) use ($taskId) {
+                $q->where('tasks.id', $taskId);
+            });
+        }
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
                     ->orWhere('description', 'like', "%{$search}%");
             });
         }
-        // Получаем результат
         $ais = $query->get();
-        return view('ai.index', compact('ais', 'transformations'));
+        return view('ai.index', compact('ais', 'transformations', 'tasks'));
     }
     public function show(ArtificialIntelligence $ai)
     {
