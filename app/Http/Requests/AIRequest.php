@@ -15,9 +15,11 @@ class AIRequest extends FormRequest
         return [
             'name' => 'required|string|min:3|max:255',
             'paid' => 'nullable|boolean',
-            'trial' => 'nullable|boolean',
-            'conversion_from' => 'nullable|string|min:3',
-            'conversion_to' => 'nullable|string|min:3',
+            'trial' => 'nullable|string|max:255',
+            'description' => 'required|string',
+            'link' => 'required|string|max:2048',
+            'transformation_ids' => 'nullable|array',
+            'transformation_ids_ids.*' => 'exists:transformations,id',
             'task_ids' => 'nullable|array',
             'task_ids.*' => 'exists:tasks,id',
         ];

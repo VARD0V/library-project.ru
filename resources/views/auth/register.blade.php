@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title', 'LibraryAI')
+@section('title', 'LibraryAI | Регистрация')
 @section('content')
     <section class="auth-container">
         <h2 class="auth-title">Регистрация</h2>

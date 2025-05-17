@@ -985,3 +985,13 @@ header nav svg:hover {
     padding: 5px 8px;
     width: fit-content;
 }
+/*---------СТРАНИЦА СОЗДАНИЯ ИИ----------*/
+.ai-create-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+}
+.ai-create-container div .select{
+    height: 250px;
+}

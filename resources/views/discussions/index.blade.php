@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title', 'LibraryAI')
+@section('title', 'LibraryAI | Обсуждения')
 @section('content')
     <div class="search-and-filter">
         <form action="{{ route('discussions.index') }}" method="GET" autocomplete="off">

@@ -45,17 +45,22 @@ class AIController extends Controller
     public function create()
     {
         $tasks = Task::all();
-        return view('ai.create',compact( 'tasks'));
+        $transformations = Transformation::all();
+        return view('ai.create', compact('tasks', 'transformations'));
     }
     public function store(AIRequest $request)
     {
-        $ai = ArtificialIntelligence::create($request->validated());
-        // Привязываем выбранные задачи к ИИ (без массивов)
-        foreach ($request->input('tasks') as $taskId) {
-            $ai->tasks()->attach($taskId);
+        $ai = ArtificialIntelligence::create($request->except(['task_ids', 'transformation_ids']));
+
+        if ($request->has('task_ids')) {
+            $ai->tasks()->attach($request->task_ids);
         }
 
-        return redirect()->route('ai.index')->with('success', 'ИИ успешно создан!');
+        if ($request->has('transformation_ids')) {
+            $ai->transformations()->attach($request->transformation_ids);
+        }
+
+        return redirect()->route('ai.index')->with('success', 'ИИ успешно добавлен!');
     }
     public function edit(ArtificialIntelligence $ai)
     {

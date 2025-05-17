@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title', 'LibraryAI')
+@section('title', 'LibraryAI | Профиль')
 @section('content')
     <section class="profile-page-wrapper">
         <div class="profile-page-container">
