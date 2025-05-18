@@ -1,13 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
-
-use App\Http\Requests\DiscussionRequest;
+use App\Http\Requests\DiscussionCreateRequest;
+use App\Http\Requests\DiscussionUpdateRequest;
 use App\Models\Discussion;
 use App\Models\DiscussionCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 class DiscussionController extends Controller
 {
     public function __construct()
@@ -19,18 +17,14 @@ class DiscussionController extends Controller
         // Получаем параметры из GET-запроса
         $search = request('search');
         $categoryId = request('category');
-
         // Загружаем все категории для фильтрации
         $categories = DiscussionCategory::all();
-
         // Базовый запрос
         $query = Discussion::query();
-
         // Фильтр по категории
         if ($categoryId) {
             $query->where('article_category_id', $categoryId);
         }
-
         // Поиск по заголовку или описанию
         if ($search) {
             $query->where(function($q) use ($search) {
@@ -38,7 +32,6 @@ class DiscussionController extends Controller
                     ->orWhere('description', 'like', "%{$search}%");
             });
         }
-
         // Получаем результат
         $discussions = $query->get();
         return view('discussions.index', compact('discussions', 'categories'));
@@ -48,19 +41,14 @@ class DiscussionController extends Controller
         $categories = DiscussionCategory::all();
         return view('discussions.create', compact('categories'));
     }
-
-    public function store(DiscussionRequest $request)
+    public function store(DiscussionCreateRequest $request)
     {
         $data = $request->validated();
-
         if ($request->hasFile('preview')) {
             $data['preview'] = $request->file('preview')->store('previews', 'public');
         }
-
         $data['author_id'] = Auth::id();
-
         Discussion::create($data);
-
         return redirect()->route('discussions.index')->with('success', 'Обсуждение создано!');
     }
     public function show(Discussion $discussion)
@@ -72,16 +60,17 @@ class DiscussionController extends Controller
         $this->authorize('update', $discussion);
         return back()->with('edit_discussion_id', $discussion->id);
     }
-
-    public function update(Request $request, Discussion $discussion)
+    public function update(DiscussionUpdateRequest $request, Discussion $discussion)
     {
-        $this->authorize('update', $discussion);
-        $request->validate([
-            'status' => 'required|string|max:255',
-        ]);
-        $discussion->status = $request->status;
-        $discussion->save();
-        return redirect()->back()->with('success', 'Статус обновлён!');
+        $data = $request->validated();
+        if ($request->hasFile('preview')) {
+            if ($discussion->preview && file_exists(storage_path('app/public/' . $discussion->preview))) {
+                unlink(storage_path('app/public/' . $discussion->preview));
+            }
+            $data['preview'] = $request->file('preview')->store('previews', 'public');
+        }
+        $discussion->update($data);
+        return redirect()->route('discussions.index')->with('success', 'Обсуждение успешно обновлено!');
     }
     public function destroy(Discussion $discussion)
     {

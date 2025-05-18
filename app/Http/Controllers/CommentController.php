@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentCreateRequest;
 use App\Http\Requests\CommentRequest;
+use App\Http\Requests\CommentUpdateRequest;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class CommentController extends Controller
@@ -13,11 +16,10 @@ class CommentController extends Controller
     {
         $this->authorizeResource(Comment::class, 'comment');
     }
-    public function store(CommentRequest $request)
+    public function store(CommentCreateRequest $request)
     {
-        $request->validated();
         $data = $request->validated();
-        $data['user_id'] = auth()->id(); // добавляем вручную, т.к. не вводится с формы
+        $data['user_id'] = Auth::id();
         Comment::create($data);
         if ($request->filled('article_id')) {
             return redirect()->route('articles.show', $request->input('article_id'))
@@ -34,15 +36,13 @@ class CommentController extends Controller
         $this->authorize('update', $comment);
         return back()->with('edit_comment_id', $comment->id);
     }
-    public function update(Request $request, Comment $comment)
+    public function update(CommentUpdateRequest $request, Comment $comment)
     {
         $this->authorize('update', $comment);
 
-        $validated = $request->validate([
-            'text' => 'required|string|min:1',
-        ]);
+        $validated = $request->validated();
         $comment->update(['text' => $validated['text']]);
-        // Перенаправим на обсуждение или статью
+
         if ($comment->article_id) {
             return redirect()->route('articles.show', $comment->article_id)->with('success', 'Комментарий обновлён!');
         }

@@ -15,10 +15,6 @@ body{
     margin: 0;
     background-color: white;
     font-family: 'RobotoCondensed', sans-serif;
-
-}
-main{
-    margin-bottom: 20px;
 }
 body::-webkit-scrollbar {
     display: none;
@@ -930,7 +926,7 @@ header nav svg:hover {
     font-size: 16px;
     padding: 8px 12px;
 }
-/*-------СТРАНИЦА С AI--------*/
+/*-------СТРАНИЦА СО ВСЕМИ AI--------*/
 .ai-container{
     display: flex;
     justify-content: center;
@@ -990,7 +986,7 @@ header nav svg:hover {
     padding: 5px 8px;
     width: fit-content;
 }
-/*---------СТРАНИЦА СОЗДАНИЯ ИИ----------*/
+/*---------СТРАНИЦА СОЗДАНИЯ AI----------*/
 .ai-create-container{
     display: flex;
     flex-wrap: wrap;
@@ -999,4 +995,18 @@ header nav svg:hover {
 }
 .ai-create-container div .select{
     height: 250px;
+}
+/*---------СТРАНИЦА AI----------*/
+.ai-containerAI{
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    background-color: #212121;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 0 auto 20px;
+    width: 80%;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 20px;
 }

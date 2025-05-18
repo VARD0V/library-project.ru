@@ -1,8 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
-
-use App\Http\Requests\ArticleRequest;
+use App\Http\Requests\ArticleCreateRequest;
+use App\Http\Requests\ArticleUpdateRequest;
 use App\Models\Article;
 use App\Models\ArticleCategory;
 use Illuminate\Support\Facades\Auth;
@@ -58,19 +57,13 @@ class ArticleController extends Controller
         return view('articles.create', compact( 'articleCategories'));
     }
     //Сохранение новой статьи в базе данных
-    public function store(ArticleRequest $request)
+    public function store(ArticleCreateRequest $request)
     {
-        // Валидация данных выполнена в ArticleRequest
         $validatedData = $request->validated();
-        // Устанавливаем автора статьи — текущего пользователя
         $validatedData['author_id'] = Auth::id();
-        // Проверяем, загружено ли изображение
         if ($request->hasFile('preview')) {
-            // Сохраняем файл в папку 'previews' внутри storage/app/public
-            $path = $request->file('preview')->store('previews', 'public');
-            $validatedData['preview'] = $path; // Обновляем путь к изображению
+            $validatedData['preview'] = $request->file('preview')->store('previews', 'public');
         }
-        // Создаем и сохраняем статью
         Article::create($validatedData);
         return redirect()->route('articles.index')->with('success', 'Статья успешно создана!');
     }
@@ -81,21 +74,15 @@ class ArticleController extends Controller
         return view('articles.edit', compact('article', 'articleCategories'));
     }
     //Обновление статьи в базе данных
-    public function update(ArticleRequest $request, Article $article)
+    public function update(ArticleUpdateRequest $request, Article $article)
     {
-        // Валидация данных выполнена в ArticleRequest
         $validatedData = $request->validated();
-        // Проверяем, загружено ли новое изображение
         if ($request->hasFile('preview')) {
-            // Удаляем старое изображение, если оно существует
             if ($article->preview) {
                 Storage::delete($article->preview);
             }
-            // Сохраняем новое изображение
-            $path = $request->file('preview')->store('previews', 'public');
-            $validatedData['preview'] = $path; // Обновляем путь к изображению
+            $validatedData['preview'] = $request->file('preview')->store('previews', 'public');
         }
-        // Обновляем статью
         $article->update($validatedData);
         return redirect()->route('articles.index')->with('success', 'Статья успешно обновлена!');
     }

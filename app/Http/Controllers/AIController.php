@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers;
+use App\Http\Requests\AICreateRequest;
 use App\Http\Requests\AIRequest;
+use App\Http\Requests\AIUpdateRequest;
 use App\Models\ArtificialIntelligence;
 use App\Models\Task;
 use App\Models\Transformation;
@@ -48,18 +50,15 @@ class AIController extends Controller
         $transformations = Transformation::all();
         return view('ai.create', compact('tasks', 'transformations'));
     }
-    public function store(AIRequest $request)
+    public function store(AICreateRequest $request)
     {
         $ai = ArtificialIntelligence::create($request->except(['task_ids', 'transformation_ids']));
-
         if ($request->has('task_ids')) {
             $ai->tasks()->attach($request->task_ids);
         }
-
         if ($request->has('transformation_ids')) {
             $ai->transformations()->attach($request->transformation_ids);
         }
-
         return redirect()->route('ai.index')->with('success', 'ИИ успешно добавлен!');
     }
     public function edit(ArtificialIntelligence $ai)
@@ -67,10 +66,11 @@ class AIController extends Controller
         $tasks = Task::all();
         return view('ai.edit', compact('ai', 'tasks'));
     }
-    public function update(AIRequest $request, ArtificialIntelligence $ai)
+    public function update(AIUpdateRequest $request, ArtificialIntelligence $ai)
     {
         $ai->update($request->validated());
-        $ai->tasks()->sync($request->input('tasks', []));
+        $ai->tasks()->sync($request->input('task_ids', []));
+        $ai->transformations()->sync($request->input('transformation_ids', []));
         return redirect()->route('ai.index')->with('success', 'ИИ обновлён!');
     }
     public function destroy(ArtificialIntelligence $ai)
