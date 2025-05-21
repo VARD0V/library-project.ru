@@ -39,7 +39,7 @@
                     </div>
                     <p class="description">{{ $discussion->description }}</p>
                     <div class="status">
-                        Статус: {{ $discussion->status }}
+                        Статус: {{ $discussion->status === 1 ? 'Активно' : 'Не активно' }}
                     </div>
                 </div>
             </a>

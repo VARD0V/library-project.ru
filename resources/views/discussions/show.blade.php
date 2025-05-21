@@ -26,7 +26,7 @@
 
             <div class="status-box">
                 <!-- Статус -->
-                <span class="status-text">Статус: {{ $discussion->status }}</span>
+                <span class="status-text">Статус: {{ $discussion->status === 1 ? 'Активно' : 'Не активно' }}</span>
 
                 <!-- Форма редактирования статуса (если активирована) -->
                 @if(session('edit_discussion_id') == $discussion->id)
