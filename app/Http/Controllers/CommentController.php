@@ -1,15 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Requests\CommentCreateRequest;
-use App\Http\Requests\CommentRequest;
 use App\Http\Requests\CommentUpdateRequest;
 use App\Models\Comment;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-
 class CommentController extends Controller
 {
     public function __construct()
@@ -39,10 +33,8 @@ class CommentController extends Controller
     public function update(CommentUpdateRequest $request, Comment $comment)
     {
         $this->authorize('update', $comment);
-
         $validated = $request->validated();
         $comment->update(['text' => $validated['text']]);
-
         if ($comment->article_id) {
             return redirect()->route('articles.show', $comment->article_id)->with('success', 'Комментарий обновлён!');
         }
@@ -65,5 +57,4 @@ class CommentController extends Controller
         }
         return back()->with('success', 'Комментарий удалён!');
     }
-
 }

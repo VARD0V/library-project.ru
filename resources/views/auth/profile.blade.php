@@ -13,7 +13,6 @@
                     @endif
                 </div>
                 <div class="profile-page-info-block">
-                    <!-- Форма редактирования -->
                     <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" id="profile-form" class="profile-page-form hidden">
                         @csrf
                         @method('PUT')
@@ -26,40 +25,29 @@
                                 </ul>
                             </div>
                         @endif
-                        <!-- Логин -->
                         <div class="profile-page-field">
                             <label for="profile-login">Логин</label>
                             <input  class="profile-page-input" type="text" id="profile-login" name="login"
                                    value="{{ old('login', auth()->user()->login) }}" required>
                         </div>
-
-                        <!-- Почта -->
                         <div class="profile-page-field">
                             <label for="profile-email">Email</label>
                             <input  class="profile-page-input" type="email" id="profile-email" name="email"
                                    value="{{ old('email', auth()->user()->email) }}" required>
                         </div>
-
-                        <!-- Дата рождения -->
                         <div class="profile-page-field">
                             <label for="profile-birthday">День рождения</label>
                             <input style="border-bottom: none" class="profile-page-input" type="date" id="profile-birthday" name="birthday"
                                    value="{{ old('birthday', auth()->user()->birthday) }}" required>
                         </div>
-
-                        <!-- Новый аватар -->
                         <div class="profile-page-field">
                             <label for="profile-avatar_url">Новый аватар</label>
                             <input type="file" name="avatar_url" id="profile-avatar_url" accept="image/jpeg,image/png,image" class="file-input">
                         </div>
-
-                        <!-- Новый пароль -->
                         <div class="profile-page-field">
                             <label for="profile-password">Новый пароль</label>
                             <input type="password" name="password" id="profile-password" placeholder="Введите новый пароль" class="profile-page-input">
                         </div>
-
-                        <!-- Подтверждение нового пароля -->
                         <div class="profile-page-field">
                             <label for="profile-password_confirmation">Подтвердите новый пароль</label>
                             <input type="password" name="password_confirmation" id="profile-password_confirmation" placeholder="Подтвердите новый пароль" class="profile-page-input">
@@ -69,28 +57,22 @@
                             <button type="button" class="profile-page-cancel-btn" id="cancel-button" style="display: none;">ОТМЕНИТЬ</button>
                         </div>
                     </form>
-
-                    <!-- Текущие данные (поля для отображения) -->
                     <div class="profile-page-field" id="login-field">
                         <label for="profile-login">Логин</label>
                         <p>{{ auth()->user()->login }}</p>
                     </div>
-
                     <div class="profile-page-field" id="email-field">
                         <label for="profile-email">Email</label>
                         <p>{{ auth()->user()->email }}</p>
                     </div>
-
                     <div class="profile-page-field" id="birthday-field">
                         <label for="profile-birthday">День рождения</label>
                         <p>{{ auth()->user()->birthday }}</p>
                     </div>
-
                     <button type="button" class="profile-page-edit-btn" id="edit-button">ИЗМЕНИТЬ ДАННЫЕ</button>
                     <button type="button" class="profile-page-cancel-btn" id="cancel-button" style="display: none;">ОТМЕНИТЬ</button>
                 </div>
             </div>
-            <!-- Форма выхода -->
             <form action="{{ route('logout') }}" method="POST" class="profile-page-logout-form">
                 @csrf
                 <div class="profile-page-logout-wrapper">
@@ -122,39 +104,30 @@
                 document.getElementById('email-field'),
                 document.getElementById('birthday-field')
             ];
-
             // При клике на "Изменить данные"
             editButton.addEventListener('click', function () {
                 // Сделать поля редактируемыми
                 document.querySelectorAll('.profile-page-input').forEach(input => input.removeAttribute('readonly'));
-
                 // Показать форму
                 profileForm.classList.remove('hidden');
-
                 // Скрыть статические поля
                 infoFields.forEach(field => field.style.display = 'none');
-
                 // Скрыть кнопку "Изменить" и показать "Отменить"
                 editButton.style.display = 'none';
                 cancelButton.style.display = 'inline-block';
             });
-
             // При клике на "Отменить"
             cancelButton.addEventListener('click', function () {
                 // Сброс формы без отправки
                 profileForm.reset();
-
                 // Восстановить значения из текущего профиля или old()
                 document.getElementById('profile-login').value = "{{ old('login', auth()->user()->login) }}";
                 document.getElementById('profile-email').value = "{{ old('email', auth()->user()->email) }}";
                 document.getElementById('profile-birthday').value = "{{ old('birthday', auth()->user()->birthday) }}";
-
                 // Скрыть форму
                 profileForm.classList.add('hidden');
-
                 // Показать статические поля
                 infoFields.forEach(field => field.style.display = 'block');
-
                 // Скрыть кнопку "Отменить" и показать "Изменить"
                 cancelButton.style.display = 'none';
                 editButton.style.display = 'inline-block';

@@ -3,9 +3,7 @@
 @section('content')
     <div class="search-and-filter">
         <form action="{{ route('discussions.index') }}" method="GET" autocomplete="off">
-            <!-- Поле поиска -->
             <input type="text" name="search" placeholder="Поиск по заголовкам и описанию..." value="{{ request('search') }}">
-            <!-- Выбор категории -->
             <select name="category" id="category">
                 <option value="">Все категории</option>
                 @foreach ($categories as $category)
@@ -14,7 +12,6 @@
                     </option>
                 @endforeach
             </select>
-            <!-- Кнопка отправки формы -->
             <button class="articles-button" type="submit">Найти</button>
         </form>
         @auth

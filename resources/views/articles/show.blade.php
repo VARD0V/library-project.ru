@@ -15,7 +15,6 @@
                 </div>
             @endif
         </div>
-
         <div class="content-block">
             <div class="image-wrapper">
                 @if($article->preview)
@@ -80,7 +79,6 @@
         @else
             <p class="no-comments">Комментариев пока нет.</p>
         @endif
-
         @auth
             <div class="comment-form-container">
                 <form action="{{ route('comments.store') }}" method="POST">

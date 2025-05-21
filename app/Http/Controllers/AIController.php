@@ -1,12 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 use App\Http\Requests\AICreateRequest;
-use App\Http\Requests\AIRequest;
 use App\Http\Requests\AIUpdateRequest;
 use App\Models\ArtificialIntelligence;
 use App\Models\Task;
 use App\Models\Transformation;
-
 class AIController extends Controller
 {
     public function __construct()

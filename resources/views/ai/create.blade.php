@@ -1,11 +1,9 @@
 @extends('layouts.layout')
 @section('title', 'Добавить новый ИИ')
 @section('content')
-
     <div class="create-container">
         <h1>Добавить новый ИИ</h1>
     </div>
-
     <div class="create-container">
         <form style="display: flex; flex-direction: column; gap: 15px" action="{{ route('ai.store') }}" method="POST">
             @csrf

@@ -1,21 +1,17 @@
 <?php
 namespace App\Http\Requests;
-
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-
 class UpdateProfileRequest extends FormRequest
 {
     public function authorize(): bool
     {
         return true;
     }
-
     public function rules(): array
     {
         $userId = Auth::id();
-
         return [
             'login' => 'string|min:2|max:32|unique:users,login,' . $userId,
             'email' => 'email|min:10|max:255|unique:users,email,' . $userId,

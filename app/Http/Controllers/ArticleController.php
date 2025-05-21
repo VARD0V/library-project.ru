@@ -6,32 +6,26 @@ use App\Models\Article;
 use App\Models\ArticleCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-
 class ArticleController extends Controller
 {
     public function __construct()
     {
         $this->authorizeResource(Article::class, 'article');
     }
-
     //Просмотр всех статей.
     public function index()
     {
         // Получаем параметры из GET-запроса
         $search = request('search');
         $categoryId = request('category');
-
         // Загружаем все категории для фильтрации
         $categories = ArticleCategory::all();
-
         // Базовый запрос
         $query = Article::query();
-
         // Фильтр по категории
         if ($categoryId) {
             $query->where('article_category_id', $categoryId);
         }
-
         // Поиск по заголовку или описанию
         if ($search) {
             $query->where(function($q) use ($search) {
@@ -39,10 +33,8 @@ class ArticleController extends Controller
                     ->orWhere('description', 'like', "%{$search}%");
             });
         }
-
         // Получаем результат
         $articles = $query->get();
-
         return view('articles.index', compact('articles', 'categories'));
     }
     //Просмотр конкретной статьи

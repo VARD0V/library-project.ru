@@ -1,7 +1,6 @@
 @extends('layouts.layout')
 @section('title', $discussion->title)
 @section('content')
-
     <div class="discussion-container">
         <div class="discussion-header">
             <h1>{{ $discussion->title }}</h1>
@@ -23,12 +22,8 @@
                     <span class="author">{{ $discussion->author->login }}</span>
                 @endif
             </div>
-
             <div class="status-box">
-                <!-- Статус -->
                 <span class="status-text">Статус: {{ $discussion->status === 1 ? 'Активно' : 'Не активно' }}</span>
-
-                <!-- Форма редактирования статуса (если активирована) -->
                 @if(session('edit_discussion_id') == $discussion->id)
                     <form action="{{ route('discussions.update', $discussion) }}" method="POST" class="inline-form">
                         @csrf
@@ -38,7 +33,6 @@
                         <a href="{{ url()->current() }}" class="btn-cancel">Отмена</a>
                     </form>
                 @else
-                    <!-- Кнопка редактирования -->
                     @can('update', $discussion)
                         <form action="{{ route('discussions.edit', $discussion) }}" method="GET" class="inline-form">
                             <button type="submit" class="btn-edit-status">Редактировать</button>
@@ -47,23 +41,18 @@
                 @endif
             </div>
         </div>
-
         <div class="discussion-content">
-            <!-- Превью -->
             @if($discussion->preview)
                 <div class="preview-image">
                     <img src="{{ asset('storage/' . $discussion->preview) }}" alt="Превью">
                 </div>
             @endif
-
-            <!-- Текст обсуждения -->
             <div class="text-section">
                 <p><strong>Описание:</strong> {{ $discussion->description }}</p>
                 <p><strong>Текст:</strong> {{ $discussion->text }}</p>
             </div>
         </div>
     </div>
-    <!-- Блок комментариев -->
     <div class="comments-container">
         <h2>Чат</h2>
         @if($discussion->comments->count())
@@ -117,7 +106,6 @@
         @else
             <p class="no-comments">Комментариев пока нет.</p>
         @endif
-
         @auth
             @if($discussion->status === 0)
                 <p class="guest-message">Комментарии недоступны, обсуждение не активно.</p>
@@ -135,7 +123,6 @@
             <p class="guest-message">Только авторизованные пользователи могут оставлять комментарии.</p>
         @endauth
     </div>
-
     <div class="back-btn">
         <a href="{{ route('discussions.index') }}">
             <svg height="50px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -145,5 +132,4 @@
             </svg>
         </a>
     </div>
-
 @endsection

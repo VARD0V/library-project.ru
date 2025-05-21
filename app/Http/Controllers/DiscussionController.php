@@ -4,7 +4,6 @@ use App\Http\Requests\DiscussionCreateRequest;
 use App\Http\Requests\DiscussionUpdateRequest;
 use App\Models\Discussion;
 use App\Models\DiscussionCategory;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class DiscussionController extends Controller
 {
