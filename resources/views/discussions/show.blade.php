@@ -119,14 +119,18 @@
         @endif
 
         @auth
-            <div class="comment-form-container">
-                <form action="{{ route('comments.store') }}" method="POST">
-                    @csrf
-                    <textarea name="text" rows="1" class="comment-input" placeholder="Комментарий..."></textarea>
-                    <input type="hidden" name="discussion_id" value="{{ $discussion->id }}">
-                    <button type="submit" class="comments-button">Отправить</button>
-                </form>
-            </div>
+            @if($discussion->status === 0)
+                <p class="guest-message">Комментарии недоступны, обсуждение не активно.</p>
+            @else
+                <div class="comment-form-container">
+                    <form action="{{ route('comments.store') }}" method="POST">
+                        @csrf
+                        <textarea name="text" rows="1" class="comment-input" placeholder="Комментарий..."></textarea>
+                        <input type="hidden" name="discussion_id" value="{{ $discussion->id }}">
+                        <button type="submit" class="comments-button">Отправить</button>
+                    </form>
+                </div>
+            @endif
         @else
             <p class="guest-message">Только авторизованные пользователи могут оставлять комментарии.</p>
         @endauth
