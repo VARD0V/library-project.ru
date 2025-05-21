@@ -10,11 +10,11 @@ class AICreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:3|max:255',
+            'name' => 'required|string|min:3|max:255|unique:artificial_intelligences',
             'paid' => 'nullable|boolean',
             'trial' => 'nullable|string|max:255',
             'description' => 'required|string',
-            'link' => 'required|string|min:8|max:2048',
+            'link' => 'required|string|min:8|max:2048|unique:artificial_intelligences',
             'transformation_ids' => 'nullable|array',
             'transformation_ids.*' => 'exists:transformations,id',
             'task_ids' => 'nullable|array',

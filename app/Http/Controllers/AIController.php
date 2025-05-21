@@ -61,8 +61,10 @@ class AIController extends Controller
     }
     public function edit(ArtificialIntelligence $ai)
     {
+        $this->authorize('update', $ai);
         $tasks = Task::all();
-        return view('ai.edit', compact('ai', 'tasks'));
+        $transformations = Transformation::all();
+        return view('ai.edit', compact('ai', 'tasks', 'transformations'));
     }
     public function update(AIUpdateRequest $request, ArtificialIntelligence $ai)
     {

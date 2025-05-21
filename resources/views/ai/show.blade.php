@@ -3,26 +3,43 @@
 @section('content')
     <div class="ai-containerAI">
         <div class="ai-container-title">
-            <h1 style="margin: 0">{{ $ai->name }}</h1>
+            <h1>{{ $ai->name }}</h1>
         </div>
-        <div class="ai-containerAI-information1">
-            <span>Платное: {{ $ai->paid === 1 ? 'Да' : 'Нет' }}</span>
-            <span>Бесплатный период: {{$ai->trial}}</span>
-            <span>Ссылка: <a href="{{$ai->link}}">{{$ai->link}}</a></span>
+        <div class="ai-info-container">
+            <div class="ai-info-text">
+                <span>Платное: {{ $ai->paid === 1 ? 'Да' : 'Нет' }}</span>
+                <span>Бесплатный период: {{ $ai->trial }}</span>
+                <span>Ссылка: <a href="{{ $ai->link }}">{{ $ai->link }}</a></span>
+            </div>
+            <div class="ai-image-container">
+                <img src="/public/assets/images/ai.png" alt="AI Image" class="ai-image">
+            </div>
         </div>
-        <div class="ai-containerAI-information2">
-            <img src="/public/assets/images/ai.png" alt="photo">
-            <p>{{$ai->description}}</p>
+
+        <div class="ai-description">
+            <span style="font-size: 20px">Описание:</span>
+            <p>{{ $ai->description }}</p>
         </div>
-        <div class="ai-card-transformations-tasks">
-            @foreach ($ai->transformations as $transformation)
-                <span>{{ $transformation->name }}</span>
-            @endforeach
+
+        <div class="ai-features-container">
+            <span style="font-size: 20px">Преобразования:</span>
+            <div class="ai-card-transformations-tasks">
+                @foreach ($ai->transformations as $transformation)
+                    <span class="ai-tag">{{ $transformation->name }}</span>
+                @endforeach
+            </div>
+            <span style="font-size: 20px">Задачи:</span>
+            <div class="ai-card-transformations-tasks">
+                @foreach ($ai->tasks as $task)
+                    <span class="ai-tag">{{ $task->name }}</span>
+                @endforeach
+            </div>
         </div>
-        <div class="ai-card-transformations-tasks">
-            @foreach ($ai->tasks as $task)
-                <span>{{ $task->name }}</span>
-            @endforeach
+
+        <div class="ai-actions">
+            @can('update', $ai)
+                <a href="{{ route('ai.edit', $ai) }}" class="btn-edit">Редактировать</a>
+            @endcan
         </div>
     </div>
     <div class="back-btn">

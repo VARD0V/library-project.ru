@@ -24,7 +24,7 @@ class AiPolicy
 
     public function update(User $user, ArtificialIntelligence $ai): bool
     {
-        return $user->role->code === 'admin';
+        return $user->id === $ai->user_id || $user->role->code === 'admin';
     }
 
     public function delete(User $user, ArtificialIntelligence $ai): bool

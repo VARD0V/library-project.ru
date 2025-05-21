@@ -1003,10 +1003,46 @@ header nav svg:hover {
     border-radius: 10px;
     padding: 20px;
     margin: 0 auto 20px;
-    width: 80%;
+    width: fit-content;
     color: white;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     gap: 20px;
+}
+.ai-info-container{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.ai-info-text{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+.ai-info-text a{
+    text-decoration: none;
+    color: #888;
+}
+.ai-image-container img{
+    width: 200px;
+}
+.ai-features-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+/*---------СТРАНИЦА AI РЕДАКТИРОВАНИЕ----------*/
+.select-ai{
+    font-family: 'RobotoCondensed', sans-serif;
+    padding-left: 5px;
+    height: 250px;
+    width: initial;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    font-size: 16px;
 }

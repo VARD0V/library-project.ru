@@ -40,11 +40,21 @@
                 <label class="create-label" for="text">Текст статьи</label>
                 <textarea rows="5" class="comment-input" name="text" id="text" required>{{ old('text', $article->text) }}</textarea>
             </div>
-
-            <button class="articles-button" type="submit">Обновить</button>
+            @if ($errors->any())
+                <div class="warning">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <div style="margin-top: 20px; display: flex; justify-content: center; align-items: center; gap: 20px">
+                <button class="articles-button" type="submit">Обновить</button>
+                <a class="btn-edit" href="{{ route('articles.show', $article) }}">Отмена</a>
+            </div>
         </form>
     </div>
-
     <div class="back-btn">
         <a href="{{ route('articles.index') }}">
             <svg height="50px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
