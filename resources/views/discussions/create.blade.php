@@ -14,7 +14,7 @@
                 </div>
                 <div>
                     <label class="create-label">Статус:</label>
-                    <input class="text-input" type="text" name="status" value="{{ old('status') }}">
+                    <input class="text-input" type="text" name="status" value="{{ old('status') }}" required>
                 </div>
                 <div>
                     <label class="create-label">Категория:</label>
@@ -38,6 +38,24 @@
                 <textarea class="comment-input" name="text" rows="5" required>{{ old('text') }}</textarea>
             </div>
             <button class="articles-button" type="submit">Создать</button>
+            @if ($errors->any())
+                <div class="alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         </form>
+    </div>
+    <div class="back-btn">
+        <a href="{{ route('discussions.index') }}">
+            <svg height="50px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9.00002 15.3802H13.92C15.62 15.3802 17 14.0002 17 12.3002C17 10.6002 15.62 9.22021 13.92 9.22021H7.15002" stroke="#212121" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8.57 10.7701L7 9.19012L8.57 7.62012" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
     </div>
 @endsection

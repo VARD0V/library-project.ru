@@ -15,7 +15,7 @@ class DiscussionCreateRequest extends FormRequest
             'description' => 'nullable|string|max:255',
             'text' => 'required|string',
             'preview' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'status' => 'string|max:2048',
+            'status' => 'required|string|max:2048',
             'discussion_category_id' => 'required|exists:discussion_categories,id',
         ];
     }
@@ -38,6 +38,7 @@ class DiscussionCreateRequest extends FormRequest
 
             'status.string' => 'Поле "Статус" должно быть строкой.',
             'status.max' => 'Поле "Статус" не должно превышать :max символов.',
+            'status.required' => 'Поле "Статус" обязательно для заполнения.',
         ];
     }
 }

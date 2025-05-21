@@ -62,21 +62,29 @@ class ArticleController extends Controller
     //Показ формы для редактирования статьи
     public function edit(Article $article)
     {
-        $articleCategories = ArticleCategory::all(); // Получаем все категории статей
+        $this->authorize('update', $article); // Проверка доступа: только автор или админ
+        $articleCategories = ArticleCategory::all(); // Получаем категории
         return view('articles.edit', compact('article', 'articleCategories'));
     }
-    //Обновление статьи в базе данных
+
     public function update(ArticleUpdateRequest $request, Article $article)
     {
-        $validatedData = $request->validated();
+        $this->authorize('update', $article); // Защита от несанкционированного доступа
+
+        $validated = $request->validated();
+
         if ($request->hasFile('preview')) {
+            // Удаляем старое изображение, если оно есть
             if ($article->preview) {
-                Storage::delete($article->preview);
+                Storage::disk('public')->delete($article->preview);
             }
-            $validatedData['preview'] = $request->file('preview')->store('previews', 'public');
+            // Сохраняем новое превью
+            $validated['preview'] = $request->file('preview')->store('previews', 'public');
         }
-        $article->update($validatedData);
-        return redirect()->route('articles.index')->with('success', 'Статья успешно обновлена!');
+
+        $article->update($validated);
+
+        return redirect()->route('articles.show', $article)->with('success', 'Статья успешно обновлена!');
     }
     //Удаление статьи из базы данных.
     public function destroy(Article $article)

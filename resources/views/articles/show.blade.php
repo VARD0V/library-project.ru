@@ -25,6 +25,11 @@
                 <p>{{ $article->text }}</p>
             </div>
         </div>
+        <div style="display: flex; justify-content: end">
+            @can('update', $article)
+                <a href="{{ route('articles.edit', $article) }}" class="btn-edit">Редактировать</a>
+            @endcan
+        </div>
     </div>
     <div class="comments-container">
         <h2>Комментарии</h2>
