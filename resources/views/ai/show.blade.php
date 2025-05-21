@@ -6,13 +6,23 @@
             <h1 style="margin: 0">{{ $ai->name }}</h1>
         </div>
         <div class="ai-containerAI-information1">
-            <span>{{$ai->paid}}</span>
-            <span>{{$ai->trial}}</span>
-            <span>{{$ai->link}}</span>
+            <span>Платное: {{ $ai->paid === 1 ? 'Да' : 'Нет' }}</span>
+            <span>Бесплатный период: {{$ai->trial}}</span>
+            <span>Ссылка: <a href="{{$ai->link}}">{{$ai->link}}</a></span>
         </div>
         <div class="ai-containerAI-information2">
             <img src="/public/assets/images/ai.png" alt="photo">
             <p>{{$ai->description}}</p>
+        </div>
+        <div class="ai-card-transformations-tasks">
+            @foreach ($ai->transformations as $transformation)
+                <span>{{ $transformation->name }}</span>
+            @endforeach
+        </div>
+        <div class="ai-card-transformations-tasks">
+            @foreach ($ai->tasks as $task)
+                <span>{{ $task->name }}</span>
+            @endforeach
         </div>
     </div>
     <div class="back-btn">
