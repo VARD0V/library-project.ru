@@ -31,13 +31,14 @@
                 <div class="article-card-horizontal">
                     <img src="{{ $article->preview ? asset('storage/' . $article->preview) : asset('assets/images/main-page2.png') }}"
                          alt="Preview" class="article-image-horizontal">
-
                     <div class="article-details">
-                        <h2 class="article-title">{{ $article->title }}</h2>
-                        <p class="article-description">{{ $article->description }}</p>
-                        <p class="article-text">
-                            {{Str::words(strip_tags($article->text), 30, '...') }}
-                        </p>
+                        <div>
+                            <h2 class="article-title">{{ $article->title }}</h2>
+                            <p class="article-description">{{ $article->description }}</p>
+                            <p class="article-text">
+                                {{Str::words(strip_tags($article->text), 30, '...') }}
+                            </p>
+                        </div>
                         <div class="article-meta-horizontal">
                             <span>{{ $article->articleCategory->name }}</span>
                             <span>{{ $article->author->login }}</span>

@@ -87,7 +87,7 @@
                     <a href="{{ route('discussions.show', $discussion->id) }}" class="profile-page-discussion-a">
                         {{ $discussion->title }}
                     </a>
-                        | {{ $discussion->status }}
+                        | {{ $discussion->status === 1 ? 'Активно' : 'Не активно' }}
                 </div>
             @empty
                 <p>Вы ещё не создавали обсуждений.</p>
