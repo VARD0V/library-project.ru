@@ -13,10 +13,6 @@
                     <input class="text-input" type="text" name="title" value="{{ old('title') }}" required>
                 </div>
                 <div>
-                    <label class="create-label">Статус:</label>
-                    <input class="text-input" type="text" name="status" value="{{ old('status') }}" required>
-                </div>
-                <div>
                     <label class="create-label">Категория:</label>
                     <select class="select" name="discussion_category_id" required>
                         @foreach($categories as $category)

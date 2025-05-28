@@ -43,11 +43,15 @@ class DiscussionController extends Controller
     public function store(DiscussionCreateRequest $request)
     {
         $data = $request->validated();
+
         if ($request->hasFile('preview')) {
             $data['preview'] = $request->file('preview')->store('previews', 'public');
         }
+
         $data['author_id'] = Auth::id();
+
         Discussion::create($data);
+
         return redirect()->route('discussions.index')->with('success', 'Обсуждение создано!');
     }
     public function show(Discussion $discussion)
