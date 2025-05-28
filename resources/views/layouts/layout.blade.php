@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="{{ asset('assets/images/logo.png') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/css.css') }}">
+    <script src="{{ asset('assets/js/main.js') }}"></script>
     <title>@yield('title')</title>
 </head>
 <body>
@@ -151,5 +152,14 @@
         </div>
     </footer>
 </div>
+@if(session('success') || session('error') || session('warning') || session('info'))
+    <div id="toast" class="toast @if(!session('success')) hidden @endif">
+        <div class="toast-content">
+            <span id="toast-message">
+                {{ session('success') ?: session('error') ?: session('warning') ?: session('info') }}
+            </span>
+        </div>
+    </div>
+@endif
 </body>
 </html>
