@@ -29,12 +29,15 @@
         @foreach($discussions as $discussion)
             <a href="{{ route('discussions.show', $discussion) }}" class="discussion-card-link">
                 <div class="discussion-card">
-                    <h1>{{ $discussion->title }}</h1>
-                    <div class="meta">
-                        <span class="category">{{ $discussion->discussionCategory?->name }}</span>
-                        <span class="author">{{ $discussion->author?->login }}</span>
+                    <div class="discussion-card-title">
+                        <h1>{{ $discussion->title }}</h1>
                     </div>
-                    <p class="description">{{ $discussion->description }}</p>
+                    <div class="meta">
+                        <span class="category">{{ $discussion->discussionCategory?->name }} | {{ $discussion->author?->login }}</span>
+                    </div>
+                    <p class="description discussion-card-description">
+                        {{ $discussion->description }}
+                    </p>
                     <div class="status">
                         Статус: {{ $discussion->status === 1 ? 'Активно' : 'Не активно' }}
                     </div>

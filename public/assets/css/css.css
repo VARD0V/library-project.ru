@@ -20,7 +20,6 @@ body{
 }
 .wrapper {
     min-height: 100vh;
-
     display: flex;
     flex-direction: column;
 }
@@ -548,26 +547,10 @@ header nav svg:hover {
     align-items: center;
     gap: 10px;
     margin-top: 10px;
+    margin-bottom: 10px;
     font-size: 0.9rem;
     color: #777;
 }
-
-.meta::before {
-    content: "|";
-    display: none;
-}
-
-.meta span::before {
-    content: "|";
-    display: inline-block;
-    margin-right: 6px;
-    color: #777;
-}
-
-.meta span:first-child::before {
-    display: none;
-}
-
 .content-block {
     display: flex;
     margin-top: 20px;
@@ -734,65 +717,57 @@ header nav svg:hover {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
     gap: 20px;
     padding: 20px;
 }
-
-.discussion-card-link {
-    text-decoration: none;
-    color: inherit;
-    width: 400px;
-    max-width: 100%;
-}
-
 .discussion-card {
     background-color: #212121;
-    border-radius: 10px;
+    border-radius: 20px;
+    color: white;
     padding: 15px;
-    height: 150px;
-    position: relative;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 200px;
+    overflow: hidden; /* Важно для обрезки контента */
+}
+
+/* --- Заголовок --- */
+.discussion-card-title {
+    max-height: 4.6em; /* Ограничиваем высоту заголовка */
+    line-height: 2.3em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Обрезаем после 2 строк */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+}
+
+/* --- Описание --- */
+.discussion-card-description {
+    max-height: 4.2em; /* ~3 строки по 1.4em */
+    line-height: 1.4em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Обрезаем после 3 строк */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    margin: 0;
+    flex-grow: 1;
+}
+.discussion-card-link{
+    text-decoration: none;
 }
 .discussion-card:hover {
     transform: scale(1.01);
 }
-
-.discussion-card h1 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 1.5rem;
-    color: white;
+.discussion-card h1{
+    margin: 0;
 }
+.status{
+    color: #CCCCCC;
+    margin-top: auto; /* Прижимает статус вниз */
 
-.meta {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-bottom: 10px;
-    color: #777;
-    font-size: 0.9rem;
-}
-
-.meta .divider {
-    margin: 0 5px;
-}
-
-.description {
-    color: white;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-}
-
-.status {
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-    font-size: 0.85rem;
-    color: #ccc;
 }
 /*------СТРАНИЦА ОБСУЖДЕНИЯ------*/
 .discussion-container {
