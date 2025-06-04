@@ -32,9 +32,7 @@ php artisan key:generate
 php artisan storage:link
 ```
 ## 6. Настройка базы данных
-```
-php artisan storage:link
-```
+
 Если возникли ошибки при миграции, выполните сброс и повторное заполнение:
 ```
 php artisan migrate:fresh --seed

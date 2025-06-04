@@ -10,85 +10,92 @@ class ArticleController extends Controller
 {
     public function __construct()
     {
+        // Автоматически применяет политику (ArticlePolicy) ко всем методам контроллера
+        // Например, для update() будет вызван метод update() в политике
         $this->authorizeResource(Article::class, 'article');
     }
-    //Просмотр всех статей.
+    // Список статей с возможностью фильтрации и поиска
     public function index()
     {
-        // Получаем параметры из GET-запроса
-        $search = request('search');
-        $categoryId = request('category');
-        // Загружаем все категории для фильтрации
+        // Получаем параметры поиска и фильтра из GET-запроса
+        $search = request('search');      // Поисковая строка
+        $categoryId = request('category'); // ID категории для фильтрации
+        // Все категории для выпадающего списка фильтра
         $categories = ArticleCategory::all();
-        // Базовый запрос
+        // Базовый запрос для получения статей
         $query = Article::query();
-        // Фильтр по категории
+        // Фильтр по категории (если выбрана)
         if ($categoryId) {
             $query->where('article_category_id', $categoryId);
         }
-        // Поиск по заголовку или описанию
+        // Поиск по заголовку или описанию (если задан)
         if ($search) {
             $query->where(function($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
                     ->orWhere('description', 'like', "%{$search}%");
             });
         }
-        // Получаем результат
         $articles = $query->get();
         return view('articles.index', compact('articles', 'categories'));
     }
-    //Просмотр конкретной статьи
+    // Просмотр одной статьи
     public function show(Article $article)
     {
+        // Laravel автоматически найдет статью по ID (Model Binding)
         return view('articles.show', compact('article'));
     }
-    //Показ формы для создания новой статьи
+    // Форма создания новой статьи
     public function create()
     {
-        $articleCategories = ArticleCategory::all(); // Получаем все категории статей
-        return view('articles.create', compact( 'articleCategories'));
+        // Получаем все категории для выпадающего списка
+        $articleCategories = ArticleCategory::all();
+        return view('articles.create', compact('articleCategories'));
     }
-    //Сохранение новой статьи в базе данных
+    // Сохранение новой статьи
     public function store(ArticleCreateRequest $request)
     {
+        // Валидация данных выполняется в ArticleCreateRequest
         $validatedData = $request->validated();
+        // Привязываем статью к текущему пользователю
         $validatedData['author_id'] = Auth::id();
+        // Если загружено изображение, сохраняем его в storage/public/previews
         if ($request->hasFile('preview')) {
             $validatedData['preview'] = $request->file('preview')->store('previews', 'public');
         }
+        // Создаем статью и перенаправляем на список статей
         Article::create($validatedData);
         return redirect()->route('articles.index')->with('success', 'Статья успешно создана!');
     }
-    //Показ формы для редактирования статьи
+    // Форма редактирования статьи
     public function edit(Article $article)
     {
-        $this->authorize('update', $article); // Проверка доступа: только автор или админ
-        $articleCategories = ArticleCategory::all(); // Получаем категории
+        $articleCategories = ArticleCategory::all();
         return view('articles.edit', compact('article', 'articleCategories'));
     }
-
+    // Обновление статьи
     public function update(ArticleUpdateRequest $request, Article $article)
     {
-        $this->authorize('update', $article); // Защита от несанкционированного доступа
-
         $validated = $request->validated();
-
+        // Если загружено новое изображение
         if ($request->hasFile('preview')) {
-            // Удаляем старое изображение, если оно есть
+            // Удаляем старое изображение (если оно было)
             if ($article->preview) {
                 Storage::disk('public')->delete($article->preview);
             }
-            // Сохраняем новое превью
+            // Сохраняем новое изображение
             $validated['preview'] = $request->file('preview')->store('previews', 'public');
         }
-
         $article->update($validated);
-
         return redirect()->route('articles.show', $article)->with('success', 'Статья успешно обновлена!');
     }
-    //Удаление статьи из базы данных.
+    // Удаление статьи
     public function destroy(Article $article)
     {
+        // Если у статьи есть превью, удаляем файл из хранилища
+        if ($article->preview) {
+            Storage::disk('public')->delete($article->preview);
+        }
+        // Удаляем статью из БД
         $article->delete();
         return redirect()->route('articles.index')->with('success', 'Статья успешно удалена!');
     }
