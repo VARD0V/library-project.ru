@@ -70,24 +70,24 @@ class AuthController extends Controller
     }
     public function update(UpdateProfileRequest $request)
     {
-            $user = Auth::user();
-            // Если загружен новый аватар
-            if ($request->hasFile('avatar_url')) {
-                // Удаляем старый аватар, если он существует
-                if ($user->avatar_url) {
-                    Storage::disk('public')->delete($user->avatar_url);
-                }
-                // Загружаем новый аватар
-                $path = $request->file('avatar_url')->store('avatars', 'public');
-                // Обновляем поле avatar_url с новым путём
-                $user->avatar_url = $path;
+        $user = Auth::user();
+        // Если загружен новый аватар
+        if ($request->hasFile('avatar_url')) {
+            // Удаляем старый аватар, если он существует
+            if ($user->avatar_url) {
+                Storage::disk('public')->delete($user->avatar_url);
             }
-            // Если введен новый пароль, то обновляем его
-            if ($request->filled('password')) {
-                $user->password = Hash::make($request->password); // Хешируем новый пароль
-            }
-            // Обновляем остальные поля пользователя
-            $user->update($request->except(['password', 'avatar_url']));
-            return redirect()->back()->with('success', 'Профиль успешно обновлен');
+            // Загружаем новый аватар
+            $path = $request->file('avatar_url')->store('avatars', 'public');
+            // Обновляем поле avatar_url с новым путём
+            $user->avatar_url = $path;
+        }
+        // Если введен новый пароль, то обновляем его
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password); // Хешируем новый пароль
+        }
+        // Обновляем остальные поля пользователя
+        $user->update($request->except(['password', 'avatar_url']));
+        return redirect()->back()->with('success', 'Профиль успешно обновлен');
     }
 }
