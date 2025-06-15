@@ -8,7 +8,7 @@
         <div class="ai-info-container">
             <div class="ai-info-text">
                 <span>Платное: {{ $ai->paid === 1 ? 'Да' : 'Нет' }}</span>
-                <span>Бесплатный период: {{ $ai->trial }}</span>
+                <span>Бесплатный период: {{ $ai->trial }} дней</span>
                 <span>Ссылка: <a href="{{ $ai->link }}">{{ $ai->link }}</a></span>
             </div>
             <div class="ai-image-container">

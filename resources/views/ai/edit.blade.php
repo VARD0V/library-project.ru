@@ -22,7 +22,7 @@
                     </div>
                     <div>
                         <label class="create-label" for="trial">Пробный период</label>
-                        <input class="text-input" type="text" name="trial" id="trial" value="{{ old('trial', $ai->trial) }}">
+                        <input class="text-input" type="number" name="trial" id="trial" value="{{ old('trial', $ai->trial) }}">
                     </div>
                     <div>
                         <label class="create-label" for="link">Ссылка</label>

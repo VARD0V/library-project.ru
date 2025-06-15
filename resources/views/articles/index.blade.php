@@ -26,6 +26,9 @@
         @endauth
     </div>
     <div class="articles-container">
+        @if($articles->isEmpty())
+            <h2>По вашему запросу ничего не найдено:(</h2>
+        @else
         @foreach ($articles as $article)
             <a href="{{ route('articles.show', $article) }}" class="article-link">
                 <div class="article-card-horizontal">
@@ -47,5 +50,6 @@
                 </div>
             </a>
         @endforeach
+        @endif
     </div>
 @endsection

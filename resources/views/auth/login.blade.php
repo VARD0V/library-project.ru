@@ -2,7 +2,7 @@
 @section('title', 'LibraryAI | Вход')
 @section('content')
     <section class="auth-container">
-        <h2 class="auth-title">Вх0д</h2>
+        <h2 class="auth-title">Вход</h2>
         <form action="{{ route('login') }}" method="post" class="auth-form" autocomplete="off">
             @csrf
             <div class="auth-field">

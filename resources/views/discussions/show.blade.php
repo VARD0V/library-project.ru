@@ -4,15 +4,6 @@
     <div class="discussion-container">
         <div class="discussion-header">
             <h1>{{ $discussion->title }}</h1>
-            @can('delete', $discussion)
-                <div>
-                    <form action="{{ route('discussions.destroy', $discussion) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn-delete" type="submit" onclick="return confirm('Вы уверены, что хотите удалить обсуждение?')">Удалить обсуждение</button>
-                    </form>
-                </div>
-            @endcan
             <div class="meta-info">
                 @if($discussion->discussionCategory)
                     <span class="category">{{ $discussion->discussionCategory->name }}</span>

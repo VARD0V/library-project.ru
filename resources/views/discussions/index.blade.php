@@ -26,6 +26,9 @@
         @endauth
     </div>
     <div class="discussions-container">
+        @if($discussions->isEmpty())
+            <h2>По вашему запросу ничего не найдено:(</h2>
+        @else
         @foreach($discussions as $discussion)
             <a href="{{ route('discussions.show', $discussion) }}" class="discussion-card-link">
                 <div class="discussion-card">
@@ -44,5 +47,6 @@
                 </div>
             </a>
         @endforeach
+        @endif
     </div>
 @endsection

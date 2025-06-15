@@ -18,7 +18,7 @@ class ArticlePolicy
     }
     public function update(User $user, Article $article): bool
     {
-        return $user->id === $article->user_id || $user->role->code === 'admin';
+        return $user->id === $article->author_id || $user->role->code === 'admin';
     }
     public function delete(User $user, Article $article): bool
     {
