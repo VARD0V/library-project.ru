@@ -27,7 +27,7 @@
                 @foreach ($ai->transformations as $transformation)
                     <span class="ai-tag">{{ $transformation->name }}</span>
                 @endforeach
-            </div>ъ
+            </div>
             <span style="font-size: 20px">Задачи:</span>
             <div class="ai-card-transformations-tasks">
                 @foreach ($ai->tasks as $task)
