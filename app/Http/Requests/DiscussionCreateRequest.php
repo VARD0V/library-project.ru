@@ -11,7 +11,7 @@ class DiscussionCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|min:10|max:255',
             'description' => 'nullable|string|max:255',
             'text' => 'required|string',
             'preview' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -23,7 +23,8 @@ class DiscussionCreateRequest extends FormRequest
         return [
             'title.required' => 'Поле "Заголовок" обязательно для заполнения.',
             'title.string' => 'Поле "Заголовок" должно быть строкой.',
-            'title.max' => 'Поле "Заголовок" не должно превышать :max символов.',
+            'title.max' => 'Поле "Название" не должно превышать :max символов.',
+            'title.min' => 'Поле "Название" должно быть больше :min символов.',
 
             'description.string' => 'Поле "Описание" должно быть строкой.',
             'description.max' => 'Поле "Описание" не должно превышать :max символов.',

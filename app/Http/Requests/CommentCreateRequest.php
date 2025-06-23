@@ -18,8 +18,8 @@ class CommentCreateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'text.required' => 'Поле "Текст комментария" обязательно.',
-            'text.min' => 'Текст комментария должен содержать хотя бы :min символ.',
+            'text.required' => 'Комментарий не может быть пустым',
+            'text.min' => 'Текст комментария должен содержать хотя бы :min символ',
         ];
     }
 }

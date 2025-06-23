@@ -24,11 +24,11 @@ class DiscussionPolicy
     // Только автор может редактировать
     public function update(User $user, Discussion $discussion): bool
     {
-        return $user->id === $discussion->author_id;
+        return $user->id === $discussion->author_id || $user->role->code === 'admin';
     }
     // Удаление — либо автор, либо админ
     public function delete(User $user, Discussion $discussion): bool
     {
-        return $user->id === $discussion->author_id || $user->role->code === 'admin';
+        return $user->role->code === 'admin';
     }
 }

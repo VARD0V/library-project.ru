@@ -18,9 +18,8 @@ class RegisterRequest extends FormRequest
                 'required',
                 'date',
                 function ($attribute, $value, $fail) {
-                    $minAge = Carbon::now()->subYears(5);
-                    if (Carbon::parse($value)->gt($minAge)) {
-                        $fail('Возраст должен быть не менее 5 лет.');
+                    if (Carbon::parse($value)->isFuture()) {
+                        $fail('Дата рождения не может быть в будущем.');
                     }
                 },
             ],

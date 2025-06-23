@@ -8,6 +8,15 @@ class Article extends Model
     protected $fillable = [
         'text', 'title', 'description', 'preview', 'article_category_id', 'author_id',
     ];
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($article) {
+            // Удаляем все комментарии перед удалением статьи
+            $article->comments()->delete();
+        });
+    }
     // Связь с категорией статьи
     public function articleCategory()
     {

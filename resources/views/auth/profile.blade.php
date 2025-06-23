@@ -16,15 +16,6 @@
                     <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" id="profile-form" class="profile-page-form hidden">
                         @csrf
                         @method('PUT')
-                        @if ($errors->any())
-                            <div class="alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
                         <div class="profile-page-field">
                             <label for="profile-login">Логин</label>
                             <input  class="profile-page-input" type="text" id="profile-login" name="login"
@@ -73,6 +64,15 @@
                     <button type="button" class="profile-page-cancel-btn" id="cancel-button" style="display: none;">ОТМЕНИТЬ</button>
                 </div>
             </div>
+            @if ($errors->any())
+                <div class="alert-danger" style="padding: 10px">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form action="{{ route('logout') }}" method="POST" class="profile-page-logout-form">
                 @csrf
                 <div class="profile-page-logout-wrapper">

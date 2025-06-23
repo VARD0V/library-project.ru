@@ -39,7 +39,7 @@
                             <h2 class="article-title">{{ $article->title }}</h2>
                             <p class="article-description">{{ $article->description }}</p>
                             <p class="article-text">
-                                {{Str::words(strip_tags($article->text), 30, '...') }}
+                                {{Str::words(strip_tags($article->text), 15, '...') }}
                             </p>
                         </div>
                         <div class="article-meta-horizontal">

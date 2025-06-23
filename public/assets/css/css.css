@@ -427,7 +427,9 @@ header nav svg:hover {
     flex-direction: column;
     width: 100%;
 }
-
+p{
+    margin: 0;
+}
 .article-title {
     color: white;
     margin: 0;
@@ -442,11 +444,11 @@ header nav svg:hover {
 
 .article-text {
     color: #ccc;
-    margin-bottom: 20px;
     line-height: 1.5;
 }
 
 .article-meta-horizontal {
+    margin-top: 5px;
     display: flex;
     justify-content: space-between;
     font-size: 0.9rem;
@@ -1020,10 +1022,14 @@ header nav svg:hover {
     color: #888;
     height: 50px;
 }
+.ai-description{
+    max-width: 500px;
+}
 .ai-card-transformations-tasks{
     height: fit-content;
     display: flex;
     flex-wrap: wrap;
+    max-width: 500px;
     gap: 3px;
     font-size: 14px;
 }
@@ -1031,7 +1037,6 @@ header nav svg:hover {
     background-color: #444;
     border-radius: 5px;
     padding: 5px 8px;
-    width: fit-content;
 }
 /*---------СТРАНИЦА СОЗДАНИЯ AI----------*/
 .ai-create-container{

@@ -8,7 +8,7 @@
         <div class="ai-info-container">
             <div class="ai-info-text">
                 <span>Платное: {{ $ai->paid === 1 ? 'Да' : 'Нет' }}</span>
-                <span>Бесплатный период: {{ $ai->trial }} дней</span>
+                <span>Бесплатный период: {{ $ai->trial !== null ? $ai->trial . ' дней' : '-' }}</span>
                 <span>Ссылка: <a href="{{ $ai->link }}">{{ $ai->link }}</a></span>
             </div>
             <div class="ai-image-container">
@@ -27,7 +27,7 @@
                 @foreach ($ai->transformations as $transformation)
                     <span class="ai-tag">{{ $transformation->name }}</span>
                 @endforeach
-            </div>
+            </div>ъ
             <span style="font-size: 20px">Задачи:</span>
             <div class="ai-card-transformations-tasks">
                 @foreach ($ai->tasks as $task)
@@ -35,10 +35,18 @@
                 @endforeach
             </div>
         </div>
-
-        <div class="ai-actions">
+        <div style="display: flex; gap: 10px">
             @can('update', $ai)
-                <a href="{{ route('ai.edit', $ai) }}" class="btn-edit">Редактировать</a>
+                <div class="ai-actions">
+                    <a href="{{ route('ai.edit', $ai) }}"><button class="btn-edit">Редактировать</button></a>
+                </div>
+            @endcan
+            @can('delete', $ai)
+                <form action="{{ route('ai.destroy', $ai) }}" method="POST" style="display:inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn-delete" onclick="return confirm('Удалить ИИ?')">Удалить</button>
+                </form>
             @endcan
         </div>
     </div>

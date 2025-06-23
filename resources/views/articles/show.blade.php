@@ -25,10 +25,17 @@
                 <p>{{ $article->text }}</p>
             </div>
         </div>
-        <div style="display: flex; justify-content: end">
+        <div style="display: flex; justify-content: end; gap: 10px">
             @can('update', $article)
-                <a href="{{ route('articles.edit', $article) }}" class="btn-edit">Редактировать</a>
+                <a href="{{ route('articles.edit', $article) }}"><button class="btn-edit">Редактировать</button></a>
             @endcan
+                @can('delete', $article)
+                    <form action="{{ route('articles.destroy', $article) }}" method="POST" style="display:inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn-delete" onclick="return confirm('Удалить статью?')">Удалить</button>
+                    </form>
+                @endcan
         </div>
     </div>
     <div class="comments-container">
@@ -96,6 +103,15 @@
         @else
             <p class="guest-message">Только авторизованные пользователи могут оставлять комментарии.</p>
         @endauth
+        @if ($errors->any())
+            <div class="auth-warning">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
     </div>
     <div class="back-btn">
         <a href="{{ route('articles.index') }}">

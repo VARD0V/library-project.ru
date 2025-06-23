@@ -17,7 +17,7 @@
                 </div>
                 <div>
                     <label class="create-label" for="trial">Пробный период:</label><br>
-                    <input class="text-input" type="text" name="trial" id="trial" value="{{ old('trial') }}">
+                    <input class="text-input" type="number" min="0" name="trial" id="trial" value="{{ old('trial') }}">
                     @error('trial')
                     <div class="text-danger">{{ $message }}</div>
                     @enderror
